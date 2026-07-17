@@ -3,3 +3,6 @@
 __pycache__/
 *.pyc
 .claude/
+credenziali_google_oauth.json
+token_google_oauth.json
+email_config.json

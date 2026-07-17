@@ -58,14 +58,27 @@
   input[type=range]{width:100%;}
   .hint{font-size:0.76rem; color:var(--sub); margin-top:4px;}
 
+  .panel-soglie{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .panel-soglie h2{color:#fff;}
+  .panel-soglie .soglia-item{background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:12px 14px;}
+  .panel-soglie .soglia-item label{color:#fff;}
+  .panel-soglie .soglia-item label b{color:#fff; background:rgba(255,255,255,0.16); padding:1px 8px; border-radius:10px;}
+  .panel-soglie .hint{color:#cbd5e1;}
+  .panel-soglie input[type=range]{-webkit-appearance:none; appearance:none; height:6px; border-radius:4px; background:rgba(255,255,255,0.3); outline:none;}
+  .panel-soglie input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--alstom-red); cursor:pointer;}
+  .panel-soglie input[type=range]::-moz-range-thumb{width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--alstom-red); cursor:pointer;}
+  .panel-soglie input[type=range]::-moz-range-track{background:rgba(255,255,255,0.3); height:6px; border-radius:4px;}
+
   .pred-kpi{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px;}
   @media (max-width:700px){ .pred-kpi{grid-template-columns:1fr;} }
   .pred-kpi .box{background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
   .pred-kpi .box .n{font-size:1.5rem; font-weight:700; color:var(--alstom-navy);}
   .pred-kpi .box .l{font-size:0.76rem; color:var(--sub); text-transform:uppercase; letter-spacing:.03em;}
-  .pred-table-wrap{overflow-x:auto;}
+  .pred-table-wrap{overflow-x:auto; border-radius:10px;}
   .pred-table{width:100%; border-collapse:collapse;}
-  .pred-table th{background:#f3f4f6; color:var(--alstom-navy); font-size:0.72rem; text-transform:uppercase; letter-spacing:.03em; padding:8px 10px; text-align:left; border-bottom:2px solid var(--line); white-space:nowrap;}
+  .pred-table th{background:var(--accent); color:#fff; font-size:0.72rem; text-transform:uppercase; letter-spacing:.03em; padding:10px 10px; text-align:left; cursor:pointer; white-space:nowrap; user-select:none;}
+  .pred-table th:hover{background:#374151;}
+  .pred-table th .sort-arrow{opacity:.6; font-size:0.7em; margin-left:4px;}
   .pred-table td{padding:8px 10px; border-bottom:1px solid var(--line); font-size:0.85rem;}
   .pred-table tr:hover td{background:#f9fafb;}
   .trend-badge{font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:12px; white-space:nowrap;}
@@ -97,10 +110,18 @@
   .bar-mini{width:80px; height:7px; background:#e5e7eb; border-radius:4px; overflow:hidden; display:inline-block; vertical-align:middle;}
   .bar-mini > span{display:block; height:100%;}
 
-  /* overlay dettaglio */
-  .overlay{position:fixed; inset:0; background:rgba(15,23,42,.45); display:none; align-items:flex-start; justify-content:center; padding:40px 16px; overflow:auto; z-index:50;}
+  /* overlay dettaglio - sfondo blu Alstom pieno (non trasparente/confuso), niente bleed-through
+     del contenuto sottostante ne' su desktop ne' durante lo scroll elastico su mobile */
+  .overlay{
+    position:fixed; inset:0; background:rgba(11,22,41,0.93); display:none;
+    align-items:flex-start; justify-content:center; padding:40px 16px; overflow:auto; z-index:50;
+    overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
+  }
   .overlay.open{display:flex;}
-  .drawer{background:#fff; border-radius:14px; max-width:760px; width:100%; padding:26px 28px; box-shadow:0 20px 60px rgba(0,0,0,.25);}
+  .drawer{
+    background:#ffffff; border-radius:14px; max-width:760px; width:100%; padding:26px 28px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25); -webkit-transform:translateZ(0); transform:translateZ(0);
+  }
   .drawer-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;}
   .drawer-head h3{margin:0; font-size:1.2rem;}
   .drawer-head .codice{color:var(--sub); font-size:0.85rem;}
@@ -194,6 +215,11 @@
 
   footer{margin-top:30px; color:var(--sub); font-size:0.76rem; text-align:center;}
 
+  /* Riduce i ritardi/glitch al tocco su smartphone per gli elementi cliccabili */
+  .btn, .chip, .close-btn, .doc-upload-btn, thead th, tbody tr, .cc-chip button, .doc-upload-btn input{
+    touch-action:manipulation;
+  }
+
   /* --- Smartphone / schermi stretti --- */
   @media (max-width:640px){
     .wrap > *:not(header){margin-left:10px; margin-right:10px;}
@@ -211,8 +237,10 @@
 
     thead th, tbody td{padding:8px 8px; font-size:0.8rem;}
 
-    .overlay{padding:0; align-items:stretch;}
-    .drawer{max-width:100%; width:100%; min-height:100%; border-radius:0; padding:16px;}
+    /* Sfondo ancora piu' pieno quando il drawer occupa tutto lo schermo, cosi'
+       non c'e' mai un lembo di pagina sottostante visibile durante lo scroll. */
+    .overlay{padding:0; align-items:stretch; background:rgba(11,22,41,0.97);}
+    .drawer{max-width:100%; width:100%; min-height:100%; border-radius:0; padding:16px; box-shadow:none;}
     .overlay .drawer.wide{max-width:100%;}
 
     .info-grid{grid-template-columns:1fr 1fr; gap:8px;}
@@ -231,6 +259,14 @@
 
     .mail-actions{flex-direction:column;}
     .mail-actions .btn{width:100%;}
+
+    /* Font-size minimo 16px sui campi: sotto questa soglia iOS Safari fa uno
+       zoom automatico indesiderato ogni volta che si tocca un campo. */
+    input, select, textarea{font-size:16px;}
+
+    /* Tocco piu' comodo su bottoni piccoli/icone */
+    .close-btn{width:38px; height:38px; font-size:1.1rem;}
+    .doc-upload-btn{width:28px; height:28px; font-size:0.85rem;}
   }
 </style>
 </head>
@@ -254,31 +290,45 @@
     <h2>🔮 Manutenzione predittiva — proiezioni sullo storico</h2>
     <div class="pred-kpi" id="predKpi"></div>
     <div class="pred-table-wrap">
-      <table class="pred-table">
+      <table class="pred-table" id="tabellaPredittiva">
         <thead>
-          <tr><th>Codice</th><th>Attrezzatura</th><th>Stima criticità</th><th>Motivo</th><th>MTBF</th><th>Trend guasti</th></tr>
+          <tr>
+            <th data-k="codice">Codice</th>
+            <th data-k="nome">Attrezzatura</th>
+            <th data-k="giorniMin">Stima criticità</th>
+            <th data-k="motivoMin">Motivo</th>
+            <th data-k="mtbf">MTBF</th>
+            <th data-k="trend">Trend guasti</th>
+          </tr>
         </thead>
         <tbody id="predBody"></tbody>
       </table>
     </div>
-    <div class="pred-hint">Stima calcolata dal trend di utilizzo mensile (ore/mese) e dal tempo medio tra guasti (MTBF); più basso è il numero di dati storici disponibili, meno affidabile è la proiezione.</div>
+    <div class="pred-hint">Stima calcolata dal trend di utilizzo mensile (ore/mese) e dal tempo medio tra guasti (MTBF); più basso è il numero di dati storici disponibili, meno affidabile è la proiezione. Clicca su un'intestazione per ordinare.</div>
   </div>
 
   <div class="panel">
     <h2>🛠️ Schede più critiche — riparazioni per componente elettronico</h2>
     <div class="pred-kpi" id="schedeKpi"></div>
     <div class="pred-table-wrap">
-      <table class="pred-table">
+      <table class="pred-table" id="tabellaSchede">
         <thead>
-          <tr><th>Codice</th><th>Scheda</th><th>N° riparazioni</th><th>Motivo guasto più frequente</th><th>Componente più sostituito</th><th>Ultima riparazione</th></tr>
+          <tr>
+            <th data-k="codice">Codice</th>
+            <th data-k="nome">Scheda</th>
+            <th data-k="nRiparazioni">N° riparazioni</th>
+            <th data-k="motivoTop">Motivo guasto più frequente</th>
+            <th data-k="componenteTop">Componente più sostituito</th>
+            <th data-k="ultimaData">Ultima riparazione</th>
+          </tr>
         </thead>
         <tbody id="schedeBody"></tbody>
       </table>
     </div>
-    <div class="pred-hint">Le riparazioni delle schede incrementano il fattore di guasto della scheda stessa, non dell'attrezzatura usata per ripararla. Qui sono aggregate per capire quali componenti si guastano più spesso e cosa controllare per primo.</div>
+    <div class="pred-hint">Le riparazioni delle schede incrementano il fattore di guasto della scheda stessa, non dell'attrezzatura usata per ripararla. Qui sono aggregate per capire quali componenti si guastano più spesso e cosa controllare per primo. Clicca su un'intestazione per ordinare.</div>
   </div>
 
-  <div class="panel">
+  <div class="panel panel-soglie">
     <h2>Soglie di allerta (regolabili)</h2>
     <div class="soglie-grid">
       <div class="soglia-item">
@@ -310,7 +360,7 @@
   </div>
 
   <div class="table-wrap">
-  <table>
+  <table id="tabellaAttrezzature">
     <thead>
       <tr>
         <th data-k="stato_complessivo">Stato</th>
@@ -448,6 +498,19 @@ let currentFilter = "tutti";
 let currentSearch = "";
 let sortKey = "stato_complessivo";
 let sortDir = -1;
+let sortKeyPred = "giorniMin";
+let sortDirPred = 1;
+let sortKeySchede = "nRiparazioni";
+let sortDirSchede = -1;
+
+function confrontaValori(va, vb, dir){
+  if (va === null || va === undefined) va = dir === 1 ? Infinity : -Infinity;
+  if (vb === null || vb === undefined) vb = dir === 1 ? Infinity : -Infinity;
+  if (typeof va === "string" || typeof vb === "string") { va = String(va).toLowerCase(); vb = String(vb).toLowerCase(); }
+  if (va < vb) return -1 * dir;
+  if (va > vb) return 1 * dir;
+  return 0;
+}
 
 // --- Manutenzione predittiva: proiezioni basate sullo storico ---
 function tassoUtilizzoMensile(a){
@@ -540,7 +603,14 @@ function renderPrevisioni(list){
     <div class="box"><div class="n">${inPeggioramento}</div><div class="l">Trend guasti in peggioramento</div></div>
   `;
 
-  const ordinata = list.slice().filter(a => a.giorniMin !== null).sort((a,b)=>a.giorniMin - b.giorniMin).slice(0, 8);
+  const candidati = list.slice().filter(a => a.giorniMin !== null).sort((a,b)=>a.giorniMin - b.giorniMin).slice(0, 8);
+  const rankTrend = { peggiora: 2, stabile: 1, migliora: 0 };
+  const valorePred = (a, k) => {
+    if (k === "mtbf") return a.mtbfInfo.mtbf;
+    if (k === "trend") return rankTrend[a.mtbfInfo.trend] ?? -1;
+    return a[k];
+  };
+  const ordinata = candidati.slice().sort((a,b)=> confrontaValori(valorePred(a, sortKeyPred), valorePred(b, sortKeyPred), sortDirPred));
   const body = document.getElementById("predBody");
   if (!ordinata.length){
     body.innerHTML = `<tr><td colspan="6" class="pred-empty">Dati storici insufficienti per generare proiezioni.</td></tr>`;
@@ -606,7 +676,8 @@ function renderSchedeCritiche(){
     <div class="box"><div class="n">${totRip}</div><div class="l">Riparazioni schede registrate</div></div>
     <div class="box"><div class="n">${peggiore ? peggiore.codice : '—'}</div><div class="l">Scheda più critica${peggiore ? ' (' + peggiore.nRiparazioni + ' riparazioni)' : ''}</div></div>
   `;
-  const top = righe.slice(0, 8);
+  const candidati = righe.slice(0, 8);
+  const top = candidati.slice().sort((a,b)=> confrontaValori(a[sortKeySchede], b[sortKeySchede], sortDirSchede));
   const body = document.getElementById("schedeBody");
   if (!top.length){
     body.innerHTML = `<tr><td colspan="6" class="pred-empty">Nessuna riparazione di schede registrata.</td></tr>`;
@@ -1115,12 +1186,44 @@ function apriAnteprimaMail(codice){
     </div>
     <div id="tabellaPreview">${tabellaHtml}</div>
     <div class="mail-actions">
+      <button class="btn btn-mail-lg" style="width:auto;" id="btnInviaOra">📨 Invia email ora</button>
       <button class="btn btn-mail-lg" style="width:auto;" id="btnApriMailto">📧 Apri nel client di posta</button>
       <button class="btn btn-secondary" id="btnCopiaTabella">📋 Copia tabella per incollare nell'email</button>
       <span class="copy-ok" id="copyOk" style="display:none;">Copiata ✓</span>
     </div>
   `;
   document.getElementById("closeMailBtn").addEventListener("click", ()=> document.getElementById("overlayMail").classList.remove("open"));
+  document.getElementById("btnInviaOra").addEventListener("click", async ()=>{
+    const btn = document.getElementById("btnInviaOra");
+    const testoOriginale = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Invio in corso...";
+    try{
+      const res = await fetch("/api/invia-mail", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          destinatario,
+          cc: raw.email_cc || [],
+          oggetto,
+          corpo_testo: costruisciTestoPiano(a),
+          corpo_html: tabellaHtml,
+        }),
+      });
+      const json = await res.json();
+      if (json.ok){
+        btn.textContent = `✅ Inviata alle ${json.orario}`;
+      } else {
+        alert("Invio non riuscito: " + (json.errore || "errore sconosciuto"));
+        btn.disabled = false;
+        btn.textContent = testoOriginale;
+      }
+    } catch(e){
+      alert("Impossibile contattare il server per l'invio. Verifica che server.py sia acceso.");
+      btn.disabled = false;
+      btn.textContent = testoOriginale;
+    }
+  });
   document.getElementById("btnApriMailto").addEventListener("click", ()=>{
     const corpo = costruisciTestoPiano(a);
     let link = `mailto:${encodeURIComponent(destinatario).replace(/%40/g,"@")}?subject=${encodeURIComponent(oggetto)}`;
@@ -1197,10 +1300,24 @@ document.querySelectorAll(".chip").forEach(chip=>{
   });
 });
 document.getElementById("search").addEventListener("input", e=>{ currentSearch = e.target.value; render(); });
-document.querySelectorAll("thead th").forEach(th=>{
+document.querySelectorAll("#tabellaAttrezzature thead th").forEach(th=>{
   th.addEventListener("click", ()=>{
     const k = th.dataset.k;
     if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = 1; }
+    render();
+  });
+});
+document.querySelectorAll("#tabellaPredittiva thead th").forEach(th=>{
+  th.addEventListener("click", ()=>{
+    const k = th.dataset.k;
+    if (sortKeyPred === k) sortDirPred *= -1; else { sortKeyPred = k; sortDirPred = 1; }
+    render();
+  });
+});
+document.querySelectorAll("#tabellaSchede thead th").forEach(th=>{
+  th.addEventListener("click", ()=>{
+    const k = th.dataset.k;
+    if (sortKeySchede === k) sortDirSchede *= -1; else { sortKeySchede = k; sortDirSchede = 1; }
     render();
   });
 });

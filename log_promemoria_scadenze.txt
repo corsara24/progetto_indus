@@ -1,0 +1,3 @@
+[17/07/2026 12:45:28] Controllo completato: 0 email inviate, 0 saltate.
+[17/07/2026 15:41:20] Controllo completato: 0 email inviate, 0 saltate.
+[17/07/2026 15:43:22] Controllo completato: 0 email inviate, 0 saltate.

@@ -23,13 +23,19 @@ USO:
 """
 
 import json
+import os
+import random
 import re
+import smtplib
 import socket
 import threading
 import time
 import webbrowser
-from datetime import datetime
+from datetime import datetime, timedelta
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from email.parser import BytesParser
+from email.utils import formataddr
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse
@@ -45,8 +51,9 @@ DOC_CODICI_DIR = BASE_DIR / "documenti" / "codici_prodotto"
 SCHEMI_DIR = BASE_DIR / "schemi_elettrici"
 RIP_TOOL_XLSX = BASE_DIR / "riparazionitool.xlsx"
 RIP_SCHEDE_XLSX = BASE_DIR / "riparazionischede.xlsx"
+EMAIL_CONFIG_PATH = BASE_DIR / "email_config.json"
 NAVY = "182C4C"
-PORT = 8000
+PORT = int(os.getenv("PORT", 8000))
 
 _lock = threading.Lock()
 _data = None  # cache in memoria, sincronizzata su disco ad ogni modifica
@@ -82,6 +89,125 @@ RIPARAZIONI_SCHEDE_INIZIALI = [
     {"codice_scheda": "SCH-3010", "codice_attrezzatura": "S-2201", "data": "2026-02-19", "motivo_guasto": "Componente bruciato per sovratensione", "componente_sostituito": "Condensatore elettrolitico 470uF", "operatore": "Simone Ricci"},
     {"codice_scheda": "SCH-3010", "codice_attrezzatura": "S-2201", "data": "2026-05-06", "motivo_guasto": "Componente bruciato per sovratensione", "componente_sostituito": "Condensatore elettrolitico 470uF", "operatore": "Federica Galli"},
 ]
+
+# --- Vocabolario per l'arricchimento automatico dei dati dimostrativi (vedi
+# _arricchisci_dati_dimostrativi): serve solo a generare uno storico piu'
+# corposo e plausibile per rendere piu' significative le statistiche di MTBF,
+# tasso di guasto e collaudi, non tocca mai gli stati correnti reali.
+OPERATORI_DEMO = [
+    "Luca Marino", "Federica Galli", "Simone Ricci", "Elisa Bruno",
+    "Marco Bianchi", "Chiara Ferrari", "Davide Colombo", "Giulia Moretti",
+]
+MOTIVI_GUASTO_TOOL_DEMO = [
+    "Usura meccanica su componente di prova",
+    "Deriva della calibrazione oltre tolleranza",
+    "Guasto elettrico su alimentazione interna",
+    "Sensore di misura fuori specifica",
+    "Connettore di prova danneggiato",
+    "Surriscaldamento durante ciclo di prova prolungato",
+    "Errore di comunicazione con PC di controllo",
+    "Usura cavo di collegamento",
+    "Rottura meccanica supporto attrezzatura",
+    "Fallimento autotest all'accensione",
+]
+COMPONENTI_TOOL_DEMO = [
+    "Cavo di alimentazione", "Connettore BNC", "Sensore di temperatura",
+    "Modulo di controllo", "Ventola di raffreddamento", "Fusibile interno",
+    "Scheda di interfaccia USB", "Supporto meccanico", "Sonda di misura",
+    "Alimentatore switching",
+]
+MOTIVI_GUASTO_SCHEDA_DEMO = [
+    "Componente bruciato per sovratensione",
+    "Condensatore elettrolitico esaurito",
+    "Corto circuito su alimentazione",
+    "Saldatura a freddo su connettore",
+    "Interferenza elettromagnetica su sensore",
+    "Rottura meccanica connettore",
+    "Guasto su circuito di comunicazione",
+    "Umidita' infiltrata nel case",
+    "Ossidazione contatti",
+    "Sovraccarico termico componente di potenza",
+]
+COMPONENTI_SCHEDA_DEMO = [
+    "Regolatore di tensione LM7805", "Condensatore elettrolitico 470uF",
+    "Fusibile di linea", "Connettore display", "Sensore encoder ottico",
+    "Connettore encoder", "Transceiver CAN", "Rele' di potenza",
+    "Resistore di pull-up", "Diodo di protezione", "Connettore antenna GPS",
+    "Transistor di potenza MOSFET", "Optoisolatore",
+]
+TIPI_COLLAUDO_DEMO = ["Taratura annuale", "Manutenzione ordinaria", "Verifica straordinaria"]
+ESITI_COLLAUDO_DEMO = ["Positivo", "Positivo", "Positivo", "Positivo", "Negativo - da rifare"]
+DESCRIZIONI_COLLAUDO_DEMO = [
+    "Verifica parametri elettrici e meccanici, esito conforme",
+    "Sostituiti componenti soggetti a usura ordinaria",
+    "Controllo visivo e funzionale completo",
+    "Taratura strumenti di misura secondo procedura interna",
+    "Verifica di sicurezza elettrica e messa a terra",
+    "Aggiornamento firmware e ricalibrazione sensori",
+    "Pulizia e lubrificazione parti meccaniche",
+    "Verifica straordinaria su segnalazione operatore",
+    "Controllo cablaggi e connessioni",
+    "Test di ripetibilita' delle misure",
+]
+
+
+def _data_casuale_demo(rng, giorni_indietro_max=560):
+    giorni = rng.randint(1, giorni_indietro_max)
+    return (datetime.now() - timedelta(days=giorni)).strftime("%Y-%m-%d")
+
+
+def _arricchisci_dati_dimostrativi(soglia=50):
+    """Se lo storico e' ancora scarno, lo integra con altri eventi dimostrativi
+    plausibili (stessa 'voce' dei dati gia' presenti) fino ad avere almeno
+    'soglia' riferimenti in riparazioni_tool (fonte del MTBF), riparazioni_schede
+    e interventi (collaudi/tarature/manutenzioni): con pochi dati le proiezioni
+    di manutenzione predittiva sono poco significative statisticamente.
+    Non tocca mai scadenza_revisione/ultimo_controllo delle attrezzature (quelle
+    restano i valori reali correnti). Gira una sola volta: il flag qui sotto
+    evita che ad ogni riavvio del server la mole di dati continui a crescere."""
+    if _data.get("_dati_dimostrativi_arricchiti"):
+        return
+
+    codici_attrezzature = [a["codice"] for a in _data.get("attrezzature", [])]
+    codici_schede = [s["codice"] for s in _data.get("schede", [])]
+    if not codici_attrezzature:
+        return
+
+    rng = random.Random(42)  # riproducibile, cosi' i risultati sono stabili tra un avvio e l'altro
+
+    rt = _data.setdefault("riparazioni_tool", [])
+    while len(rt) < soglia:
+        rt.append({
+            "codice_attrezzatura": rng.choice(codici_attrezzature),
+            "data": _data_casuale_demo(rng),
+            "motivo_guasto": rng.choice(MOTIVI_GUASTO_TOOL_DEMO),
+            "componente_sostituito": rng.choice(COMPONENTI_TOOL_DEMO),
+            "operatore": rng.choice(OPERATORI_DEMO),
+        })
+
+    if codici_schede:
+        rs = _data.setdefault("riparazioni_schede", [])
+        while len(rs) < soglia:
+            rs.append({
+                "codice_scheda": rng.choice(codici_schede),
+                "codice_attrezzatura": rng.choice(codici_attrezzature),
+                "data": _data_casuale_demo(rng),
+                "motivo_guasto": rng.choice(MOTIVI_GUASTO_SCHEDA_DEMO),
+                "componente_sostituito": rng.choice(COMPONENTI_SCHEDA_DEMO),
+                "operatore": rng.choice(OPERATORI_DEMO),
+            })
+
+    iv = _data.setdefault("interventi", [])
+    while len(iv) < soglia:
+        iv.append({
+            "codice": rng.choice(codici_attrezzature),
+            "data": _data_casuale_demo(rng),
+            "tipo": rng.choice(TIPI_COLLAUDO_DEMO),
+            "descrizione": rng.choice(DESCRIZIONI_COLLAUDO_DEMO),
+            "esito": rng.choice(ESITI_COLLAUDO_DEMO),
+        })
+
+    _data["_dati_dimostrativi_arricchiti"] = True
 
 
 def _migra_riparazioni_guasto_da_interventi():
@@ -125,6 +251,8 @@ def carica_dati():
         _data["schede"] = [dict(s) for s in SCHEDE_INIZIALI]
     if not _data["riparazioni_schede"]:
         _data["riparazioni_schede"] = [dict(r) for r in RIPARAZIONI_SCHEDE_INIZIALI]
+
+    _arricchisci_dati_dimostrativi()
 
     for d in (DOC_PROCEDURE_DIR, DOC_CODICI_DIR, SCHEMI_DIR):
         d.mkdir(parents=True, exist_ok=True)
@@ -325,6 +453,25 @@ class Handler(SimpleHTTPRequestHandler):
     def do_POST(self):
         path = urlparse(self.path).path
         content_type = self.headers.get("Content-Type", "")
+
+        # Endpoint a parte: non tocca _data/dati_store.json, quindi non passa
+        # dal salvataggio automatico e ritorna una risposta propria (esito
+        # invio, orario, destinatario) invece del solito {"ok":true,"data":...}.
+        if path == "/api/invia-mail" and not content_type.startswith("multipart/form-data"):
+            try:
+                body = self._body_json()
+                risultato = invia_email_promemoria(
+                    destinatario=body.get("destinatario", ""),
+                    cc=body.get("cc") or [],
+                    oggetto=body.get("oggetto", ""),
+                    corpo_testo=body.get("corpo_testo", ""),
+                    corpo_html=body.get("corpo_html"),
+                )
+                self._json(risultato, status=200 if risultato.get("ok") else 400)
+            except Exception as e:
+                self._json({"ok": False, "errore": f"Errore interno: {e}"}, status=500)
+            return
+
         try:
             with _lock:
                 if content_type.startswith("multipart/form-data"):
@@ -583,6 +730,82 @@ class Handler(SimpleHTTPRequestHandler):
         lista.append({"nome": filename, "url": rel})
 
 
+def _carica_config_email():
+    """Legge email_config.json ad ogni invio (cosi' se lo modifichi mentre
+    server.py e' acceso basta salvarlo, senza dover riavviare)."""
+    if not EMAIL_CONFIG_PATH.exists():
+        return None
+    try:
+        with EMAIL_CONFIG_PATH.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def invia_email_promemoria(destinatario, cc, oggetto, corpo_testo, corpo_html=None):
+    """Spedisce davvero un'email via SMTP usando le credenziali di
+    email_config.json. Ritorna sempre un dict con almeno la chiave "ok";
+    non solleva mai eccezioni verso il chiamante, per poter mostrare un
+    messaggio di errore chiaro nell'interfaccia invece di un errore 500."""
+    if not destinatario:
+        return {"ok": False, "errore": "Nessun indirizzo email del responsabile impostato per questa attrezzatura."}
+
+    cfg = _carica_config_email()
+    if not cfg:
+        return {"ok": False, "errore": "File email_config.json mancante. Vedi ISTRUZIONI_EMAIL.md per configurarlo."}
+    if not cfg.get("attivo"):
+        return {"ok": False, "errore": "Invio email non ancora attivato: apri email_config.json, compila i tuoi dati e imposta \"attivo\": true (vedi ISTRUZIONI_EMAIL.md)."}
+
+    mittente_email = (cfg.get("mittente_email") or "").strip()
+    mittente_nome = cfg.get("mittente_nome") or "Monitoraggio Attrezzature"
+
+    if (cfg.get("metodo") or "smtp") == "gmail_api":
+        from gmail_oauth import invia_email_gmail_api
+        if not mittente_email or "INSERISCI_QUI" in mittente_email:
+            return {"ok": False, "errore": "email_config.json non e' ancora compilato con la tua email. Vedi ISTRUZIONI_GMAIL_API.md."}
+        return invia_email_gmail_api(mittente_email, mittente_nome, destinatario, cc, oggetto, corpo_testo, corpo_html)
+
+    mittente_password = (cfg.get("mittente_password_app") or "").strip()
+    if not mittente_email or "INSERISCI_QUI" in mittente_email or not mittente_password or "INSERISCI_QUI" in mittente_password:
+        return {"ok": False, "errore": "email_config.json non e' ancora compilato con la tua email e app password. Vedi ISTRUZIONI_EMAIL.md."}
+
+    smtp_host = cfg.get("smtp_host") or "smtp.gmail.com"
+    smtp_porta = int(cfg.get("smtp_porta") or 587)
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = oggetto
+    msg["From"] = formataddr((mittente_nome, mittente_email))
+    msg["To"] = destinatario
+    cc_puliti = [c.strip() for c in (cc or []) if c and c.strip()]
+    if cc_puliti:
+        msg["Cc"] = ", ".join(cc_puliti)
+    msg.attach(MIMEText(corpo_testo or "", "plain", "utf-8"))
+    if corpo_html:
+        msg.attach(MIMEText(corpo_html, "html", "utf-8"))
+
+    destinatari_completi = [destinatario] + cc_puliti
+
+    try:
+        with smtplib.SMTP(smtp_host, smtp_porta, timeout=15) as server:
+            server.starttls()
+            server.login(mittente_email, mittente_password)
+            server.sendmail(mittente_email, destinatari_completi, msg.as_string())
+    except smtplib.SMTPAuthenticationError:
+        return {"ok": False, "errore": "Accesso rifiutato dal server email: controlla email e app password in email_config.json."}
+    except smtplib.SMTPException as e:
+        return {"ok": False, "errore": f"Errore SMTP durante l'invio: {e}"}
+    except OSError as e:
+        return {"ok": False, "errore": f"Impossibile raggiungere il server email ({smtp_host}:{smtp_porta}): {e}"}
+
+    return {
+        "ok": True,
+        "destinatario": destinatario,
+        "cc": cc_puliti,
+        "orario": datetime.now().strftime("%H:%M:%S"),
+        "mittente": mittente_email,
+    }
+
+
 def ottieni_ip_locali():
     """Trova gli indirizzi IPv4 di questo PC sulla rete locale (Wi-Fi/LAN), per
     poterli comunicare a chi vuole aprire la dashboard da smartphone/tablet
@@ -627,29 +850,35 @@ def main():
     server = ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
     url = f"http://localhost:{PORT}/"
     ip_locali = ottieni_ip_locali()
+    is_railway = os.getenv("RAILWAY_ENVIRONMENT_NAME") is not None
 
     print("Server avviato.")
-    print(f"  Su questo PC:                {url}")
-    if ip_locali:
-        print("  Da smartphone/tablet (stessa rete Wi-Fi), prova questo indirizzo:")
-        print(f"    http://{ip_locali[0]}:{PORT}/")
-        if len(ip_locali) > 1:
-            print("  Se non funziona, il PC ha piu' schede di rete: prova anche:")
-            for ip in ip_locali[1:]:
-                print(f"    http://{ip}:{PORT}/")
-    else:
-        print("  Da smartphone/tablet: non e' stato possibile rilevare l'IP di rete automaticamente.")
-        print("  Cerca l'indirizzo IPv4 del PC (Impostazioni > Rete, oppure 'ipconfig' nel prompt dei comandi,")
-        print(f"   cerca la riga 'Indirizzo IPv4' della scheda Wi-Fi) e apri http://<QUELL'IP>:{PORT}/ dal telefono.")
-    print()
-    print("  Se lo smartphone non riesce a collegarsi (pagina bianca o 'impossibile contattare")
-    print("  il server'), la causa piu' comune e' il Firewall di Windows che blocca le connessioni")
-    print("  in ingresso su questa porta. Fai doppio click su 'consenti_firewall.bat' in questa")
-    print("  cartella, scegli 'Si'/'Esegui come amministratore' se richiesto, poi riprova dal telefono.")
-    print("  (Verifica anche che telefono e PC siano collegati alla stessa rete Wi-Fi.)")
-    print("Premi Ctrl+C per fermarlo.")
+    if not is_railway:
+        print(f"  Su questo PC:                {url}")
+        if ip_locali:
+            print("  Da smartphone/tablet (stessa rete Wi-Fi), prova questo indirizzo:")
+            print(f"    http://{ip_locali[0]}:{PORT}/")
+            if len(ip_locali) > 1:
+                print("  Se non funziona, il PC ha piu' schede di rete: prova anche:")
+                for ip in ip_locali[1:]:
+                    print(f"    http://{ip}:{PORT}/")
+        else:
+            print("  Da smartphone/tablet: non e' stato possibile rilevare l'IP di rete automaticamente.")
+            print("  Cerca l'indirizzo IPv4 del PC (Impostazioni > Rete, oppure 'ipconfig' nel prompt dei comandi,")
+            print(f"   cerca la riga 'Indirizzo IPv4' della scheda Wi-Fi) e apri http://<QUELL'IP>:{PORT}/ dal telefono.")
+        print()
+        print("  Se lo smartphone non riesce a collegarsi (pagina bianca o 'impossibile contattare")
+        print("  il server'), la causa piu' comune e' il Firewall di Windows che blocca le connessioni")
+        print("  in ingresso su questa porta. Fai doppio click su 'consenti_firewall.bat' in questa")
+        print("  cartella, scegli 'Si'/'Esegui come amministratore' se richiesto, poi riprova dal telefono.")
+        print("  (Verifica anche che telefono e PC siano collegati alla stessa rete Wi-Fi.)")
+        print("Premi Ctrl+C per fermarlo.")
 
-    threading.Timer(0.6, lambda: webbrowser.open(url)).start()
+        # Apri automaticamente il browser solo in locale
+        threading.Timer(0.6, lambda: webbrowser.open(url)).start()
+    else:
+        print(f"  Applicazione in esecuzione su Railway.")
+        print(f"  La dashboard è disponibile all'URL del progetto Railway.")
 
     try:
         server.serve_forever()

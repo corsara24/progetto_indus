@@ -86,7 +86,7 @@
         "PC-0109"
       ],
       "responsabile_nome": "Marco Bianchi",
-      "responsabile_email": "marco.bianchi@azienda.it",
+      "responsabile_email": "sararaimondo24@gmail.com",
       "email_cc": [],
       "schemi_elettrici": [
         {
@@ -697,7 +697,7 @@
         "PC-0142"
       ],
       "responsabile_nome": "Davide Greco",
-      "responsabile_email": "davide.greco@azienda.it",
+      "responsabile_email": "sararaimondo24@gmail.com",
       "email_cc": [],
       "schemi_elettrici": [
         {
@@ -793,7 +793,7 @@
         "PC-0157"
       ],
       "responsabile_nome": "Marco Bianchi",
-      "responsabile_email": "marco.bianchi@azienda.it",
+      "responsabile_email": "sararaimondo24@gmail.com",
       "email_cc": [],
       "schemi_elettrici": [
         {
@@ -1078,6 +1078,90 @@
       "email_cc": [],
       "schemi_elettrici": [],
       "prelievi": []
+    },
+    {
+      "codice": "Dtr4",
+      "nome": "Valigetta MFCS",
+      "ubicazione": "Bertello 54",
+      "ultimo_controllo": "2026-07-01",
+      "scadenza_revisione": "2028-07-17",
+      "soglia_ore": 9000.0,
+      "ore_uso_attuali": 0.0,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0.0
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "codici_prodotto": [],
+      "procedure_collaudo": [],
+      "responsabile_nome": "Da assegnare",
+      "responsabile_email": "",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "IMG-20260716-WA0005.jpg",
+          "url": "schemi_elettrici/Dtr4__0__IMG-20260716-WA0005.jpg"
+        }
+      ],
+      "prelievi": []
     }
   ],
   "interventi": [
@@ -1248,6 +1332,188 @@
       "tipo": "Manutenzione ordinaria",
       "descrizione": "ripristino collegamento alimentazione - cavi spezzati",
       "esito": "Positivo"
+    },
+    {
+      "codice": "S-2214",
+      "data": "2025-08-29",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Test di ripetibilita' delle misure",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "DTR-027",
+      "data": "2025-06-17",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Taratura strumenti di misura secondo procedura interna",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR-014",
+      "data": "2025-04-26",
+      "tipo": "Taratura annuale",
+      "descrizione": "Controllo cablaggi e connessioni",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "DTR0001",
+      "data": "2025-12-27",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e lubrificazione parti meccaniche",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR0001",
+      "data": "2025-08-12",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Aggiornamento firmware e ricalibrazione sensori",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "Dtr4",
+      "data": "2025-09-12",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Verifica di sicurezza elettrica e messa a terra",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2214",
+      "data": "2025-05-30",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Verifica di sicurezza elettrica e messa a terra",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "TLS-102",
+      "data": "2026-01-01",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e lubrificazione parti meccaniche",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-147",
+      "data": "2025-09-11",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Controllo cablaggi e connessioni",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2201",
+      "data": "2025-09-26",
+      "tipo": "Taratura annuale",
+      "descrizione": "Pulizia e lubrificazione parti meccaniche",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "TLS-147",
+      "data": "2025-08-21",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Verifica straordinaria su segnalazione operatore",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR0001",
+      "data": "2025-12-10",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Verifica straordinaria su segnalazione operatore",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR0001",
+      "data": "2026-04-21",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Controllo cablaggi e connessioni",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "S-2214",
+      "data": "2026-04-12",
+      "tipo": "Taratura annuale",
+      "descrizione": "Verifica di sicurezza elettrica e messa a terra",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-118",
+      "data": "2026-02-16",
+      "tipo": "Taratura annuale",
+      "descrizione": "Verifica parametri elettrici e meccanici, esito conforme",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR-041",
+      "data": "2026-05-03",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e lubrificazione parti meccaniche",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "TLS-118",
+      "data": "2025-06-18",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e lubrificazione parti meccaniche",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-102",
+      "data": "2026-07-11",
+      "tipo": "Taratura annuale",
+      "descrizione": "Pulizia e lubrificazione parti meccaniche",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-102",
+      "data": "2025-02-01",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Verifica parametri elettrici e meccanici, esito conforme",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "TLS-118",
+      "data": "2026-03-14",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Controllo visivo e funzionale completo",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR0001",
+      "data": "2025-01-19",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Test di ripetibilita' delle misure",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR-041",
+      "data": "2025-02-15",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Controllo cablaggi e connessioni",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-102",
+      "data": "2025-03-17",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Verifica di sicurezza elettrica e messa a terra",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR0001",
+      "data": "2025-10-06",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Verifica straordinaria su segnalazione operatore",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2201",
+      "data": "2025-04-22",
+      "tipo": "Taratura annuale",
+      "descrizione": "Verifica di sicurezza elettrica e messa a terra",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2201",
+      "data": "2025-08-07",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Controllo cablaggi e connessioni",
+      "esito": "Positivo"
     }
   ],
   "documenti_procedure": {
@@ -1405,6 +1671,307 @@
       "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
       "componente_sostituito": "Non specificato (dato migrato)",
       "operatore": ""
+    },
+    {
+      "codice_attrezzatura": "DTR0001",
+      "data": "2026-03-24",
+      "motivo_guasto": "Usura meccanica su componente di prova",
+      "componente_sostituito": "Ventola di raffreddamento",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "TLS-118",
+      "data": "2026-02-24",
+      "motivo_guasto": "Deriva della calibrazione oltre tolleranza",
+      "componente_sostituito": "Sonda di misura",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "TLS-147",
+      "data": "2025-05-10",
+      "motivo_guasto": "Usura meccanica su componente di prova",
+      "componente_sostituito": "Cavo di alimentazione",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-11-20",
+      "motivo_guasto": "Rottura meccanica supporto attrezzatura",
+      "componente_sostituito": "Alimentatore switching",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2025-12-25",
+      "motivo_guasto": "Rottura meccanica supporto attrezzatura",
+      "componente_sostituito": "Scheda di interfaccia USB",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "DTR-041",
+      "data": "2025-10-05",
+      "motivo_guasto": "Usura meccanica su componente di prova",
+      "componente_sostituito": "Sensore di temperatura",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_attrezzatura": "S-2214",
+      "data": "2025-10-05",
+      "motivo_guasto": "Guasto elettrico su alimentazione interna",
+      "componente_sostituito": "Modulo di controllo",
+      "operatore": "Chiara Ferrari"
+    },
+    {
+      "codice_attrezzatura": "DTR-027",
+      "data": "2026-04-13",
+      "motivo_guasto": "Errore di comunicazione con PC di controllo",
+      "componente_sostituito": "Connettore BNC",
+      "operatore": "Chiara Ferrari"
+    },
+    {
+      "codice_attrezzatura": "S-2214",
+      "data": "2025-10-19",
+      "motivo_guasto": "Usura meccanica su componente di prova",
+      "componente_sostituito": "Supporto meccanico",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "TLS-133",
+      "data": "2026-04-27",
+      "motivo_guasto": "Rottura meccanica supporto attrezzatura",
+      "componente_sostituito": "Ventola di raffreddamento",
+      "operatore": "Chiara Ferrari"
+    },
+    {
+      "codice_attrezzatura": "TLS-147",
+      "data": "2026-01-01",
+      "motivo_guasto": "Deriva della calibrazione oltre tolleranza",
+      "componente_sostituito": "Cavo di alimentazione",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "S-2201",
+      "data": "2026-04-26",
+      "motivo_guasto": "Sensore di misura fuori specifica",
+      "componente_sostituito": "Connettore BNC",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_attrezzatura": "S-2201",
+      "data": "2025-04-08",
+      "motivo_guasto": "Surriscaldamento durante ciclo di prova prolungato",
+      "componente_sostituito": "Sensore di temperatura",
+      "operatore": "Chiara Ferrari"
+    },
+    {
+      "codice_attrezzatura": "S-2214",
+      "data": "2025-12-14",
+      "motivo_guasto": "Connettore di prova danneggiato",
+      "componente_sostituito": "Connettore BNC",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2025-11-08",
+      "motivo_guasto": "Guasto elettrico su alimentazione interna",
+      "componente_sostituito": "Supporto meccanico",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_attrezzatura": "S-2201",
+      "data": "2025-12-04",
+      "motivo_guasto": "Surriscaldamento durante ciclo di prova prolungato",
+      "componente_sostituito": "Cavo di alimentazione",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "DTR-014",
+      "data": "2025-08-27",
+      "motivo_guasto": "Errore di comunicazione con PC di controllo",
+      "componente_sostituito": "Ventola di raffreddamento",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-08-28",
+      "motivo_guasto": "Sensore di misura fuori specifica",
+      "componente_sostituito": "Supporto meccanico",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_attrezzatura": "DTR0001",
+      "data": "2025-04-03",
+      "motivo_guasto": "Guasto elettrico su alimentazione interna",
+      "componente_sostituito": "Ventola di raffreddamento",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-01-11",
+      "motivo_guasto": "Connettore di prova danneggiato",
+      "componente_sostituito": "Alimentatore switching",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_attrezzatura": "TLS-147",
+      "data": "2025-06-03",
+      "motivo_guasto": "Surriscaldamento durante ciclo di prova prolungato",
+      "componente_sostituito": "Modulo di controllo",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2025-02-26",
+      "motivo_guasto": "Deriva della calibrazione oltre tolleranza",
+      "componente_sostituito": "Cavo di alimentazione",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "TLS-102",
+      "data": "2026-02-03",
+      "motivo_guasto": "Errore di comunicazione con PC di controllo",
+      "componente_sostituito": "Alimentatore switching",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "TLS-133",
+      "data": "2025-06-21",
+      "motivo_guasto": "Fallimento autotest all'accensione",
+      "componente_sostituito": "Supporto meccanico",
+      "operatore": "Marco Bianchi"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2026-07-05",
+      "motivo_guasto": "Deriva della calibrazione oltre tolleranza",
+      "componente_sostituito": "Sonda di misura",
+      "operatore": "Marco Bianchi"
+    },
+    {
+      "codice_attrezzatura": "DTR0001",
+      "data": "2025-08-02",
+      "motivo_guasto": "Deriva della calibrazione oltre tolleranza",
+      "componente_sostituito": "Ventola di raffreddamento",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_attrezzatura": "TLS-102",
+      "data": "2025-04-08",
+      "motivo_guasto": "Usura meccanica su componente di prova",
+      "componente_sostituito": "Ventola di raffreddamento",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2026-03-30",
+      "motivo_guasto": "Connettore di prova danneggiato",
+      "componente_sostituito": "Sonda di misura",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "TLS-102",
+      "data": "2025-06-29",
+      "motivo_guasto": "Guasto elettrico su alimentazione interna",
+      "componente_sostituito": "Sonda di misura",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_attrezzatura": "TLS-147",
+      "data": "2025-08-19",
+      "motivo_guasto": "Usura cavo di collegamento",
+      "componente_sostituito": "Cavo di alimentazione",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "S-2214",
+      "data": "2025-09-05",
+      "motivo_guasto": "Sensore di misura fuori specifica",
+      "componente_sostituito": "Cavo di alimentazione",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "TLS-147",
+      "data": "2026-04-27",
+      "motivo_guasto": "Deriva della calibrazione oltre tolleranza",
+      "componente_sostituito": "Supporto meccanico",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2026-03-10",
+      "motivo_guasto": "Guasto elettrico su alimentazione interna",
+      "componente_sostituito": "Supporto meccanico",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_attrezzatura": "S-2201",
+      "data": "2025-01-22",
+      "motivo_guasto": "Fallimento autotest all'accensione",
+      "componente_sostituito": "Scheda di interfaccia USB",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2025-12-23",
+      "motivo_guasto": "Connettore di prova danneggiato",
+      "componente_sostituito": "Scheda di interfaccia USB",
+      "operatore": "Chiara Ferrari"
+    },
+    {
+      "codice_attrezzatura": "DTR-041",
+      "data": "2025-02-02",
+      "motivo_guasto": "Usura cavo di collegamento",
+      "componente_sostituito": "Connettore BNC",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "TLS-118",
+      "data": "2026-05-12",
+      "motivo_guasto": "Surriscaldamento durante ciclo di prova prolungato",
+      "componente_sostituito": "Cavo di alimentazione",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "TLS-147",
+      "data": "2025-12-03",
+      "motivo_guasto": "Usura meccanica su componente di prova",
+      "componente_sostituito": "Connettore BNC",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_attrezzatura": "TLS-118",
+      "data": "2026-05-08",
+      "motivo_guasto": "Usura meccanica su componente di prova",
+      "componente_sostituito": "Fusibile interno",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2025-11-15",
+      "motivo_guasto": "Connettore di prova danneggiato",
+      "componente_sostituito": "Supporto meccanico",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_attrezzatura": "S-2255",
+      "data": "2026-03-03",
+      "motivo_guasto": "Fallimento autotest all'accensione",
+      "componente_sostituito": "Alimentatore switching",
+      "operatore": "Giulia Moretti"
+    },
+    {
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-03-19",
+      "motivo_guasto": "Errore di comunicazione con PC di controllo",
+      "componente_sostituito": "Modulo di controllo",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_attrezzatura": "DTR-027",
+      "data": "2025-05-01",
+      "motivo_guasto": "Surriscaldamento durante ciclo di prova prolungato",
+      "componente_sostituito": "Scheda di interfaccia USB",
+      "operatore": "Davide Colombo"
     }
   ],
   "riparazioni_schede": [
@@ -1527,6 +2094,287 @@
       "motivo_guasto": "Componente bruciato per sovratensione",
       "componente_sostituito": "Condensatore elettrolitico 470uF",
       "operatore": "Federica Galli"
+    },
+    {
+      "codice_scheda": "SCH-3008",
+      "codice_attrezzatura": "Dtr4",
+      "data": "2026-05-22",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Regolatore di tensione LM7805",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_scheda": "SCH-3006",
+      "codice_attrezzatura": "DTR-027",
+      "data": "2025-11-04",
+      "motivo_guasto": "Saldatura a freddo su connettore",
+      "componente_sostituito": "Connettore display",
+      "operatore": "Giulia Moretti"
+    },
+    {
+      "codice_scheda": "SCH-3003",
+      "codice_attrezzatura": "TLS-133",
+      "data": "2026-01-10",
+      "motivo_guasto": "Interferenza elettromagnetica su sensore",
+      "componente_sostituito": "Rele' di potenza",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_scheda": "SCH-3002",
+      "codice_attrezzatura": "DTR-041",
+      "data": "2026-04-07",
+      "motivo_guasto": "Componente bruciato per sovratensione",
+      "componente_sostituito": "Connettore antenna GPS",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3002",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2026-01-27",
+      "motivo_guasto": "Guasto su circuito di comunicazione",
+      "componente_sostituito": "Rele' di potenza",
+      "operatore": "Giulia Moretti"
+    },
+    {
+      "codice_scheda": "SCH-3004",
+      "codice_attrezzatura": "TLS-133",
+      "data": "2026-05-17",
+      "motivo_guasto": "Corto circuito su alimentazione",
+      "componente_sostituito": "Transceiver CAN",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3007",
+      "codice_attrezzatura": "S-2201",
+      "data": "2025-04-07",
+      "motivo_guasto": "Interferenza elettromagnetica su sensore",
+      "componente_sostituito": "Transceiver CAN",
+      "operatore": "Giulia Moretti"
+    },
+    {
+      "codice_scheda": "SCH-3003",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-09-16",
+      "motivo_guasto": "Saldatura a freddo su connettore",
+      "componente_sostituito": "Regolatore di tensione LM7805",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3006",
+      "codice_attrezzatura": "DTR-014",
+      "data": "2026-05-26",
+      "motivo_guasto": "Sovraccarico termico componente di potenza",
+      "componente_sostituito": "Rele' di potenza",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3001",
+      "codice_attrezzatura": "S-2255",
+      "data": "2026-04-25",
+      "motivo_guasto": "Corto circuito su alimentazione",
+      "componente_sostituito": "Condensatore elettrolitico 470uF",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_scheda": "SCH-3004",
+      "codice_attrezzatura": "TLS-133",
+      "data": "2026-03-16",
+      "motivo_guasto": "Sovraccarico termico componente di potenza",
+      "componente_sostituito": "Connettore display",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3010",
+      "codice_attrezzatura": "DTR-027",
+      "data": "2025-05-13",
+      "motivo_guasto": "Sovraccarico termico componente di potenza",
+      "componente_sostituito": "Diodo di protezione",
+      "operatore": "Chiara Ferrari"
+    },
+    {
+      "codice_scheda": "SCH-3005",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-08-29",
+      "motivo_guasto": "Saldatura a freddo su connettore",
+      "componente_sostituito": "Sensore encoder ottico",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_scheda": "SCH-3003",
+      "codice_attrezzatura": "DTR0001",
+      "data": "2025-09-12",
+      "motivo_guasto": "Umidita' infiltrata nel case",
+      "componente_sostituito": "Connettore encoder",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_scheda": "SCH-3001",
+      "codice_attrezzatura": "DTR-041",
+      "data": "2026-04-05",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Resistore di pull-up",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_scheda": "SCH-3009",
+      "codice_attrezzatura": "S-2201",
+      "data": "2026-03-03",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Condensatore elettrolitico 470uF",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_scheda": "SCH-3006",
+      "codice_attrezzatura": "S-2201",
+      "data": "2026-02-05",
+      "motivo_guasto": "Umidita' infiltrata nel case",
+      "componente_sostituito": "Resistore di pull-up",
+      "operatore": "Marco Bianchi"
+    },
+    {
+      "codice_scheda": "SCH-3010",
+      "codice_attrezzatura": "DTR0001",
+      "data": "2025-01-21",
+      "motivo_guasto": "Componente bruciato per sovratensione",
+      "componente_sostituito": "Connettore antenna GPS",
+      "operatore": "Marco Bianchi"
+    },
+    {
+      "codice_scheda": "SCH-3002",
+      "codice_attrezzatura": "TLS-102",
+      "data": "2025-10-19",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Condensatore elettrolitico 470uF",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3005",
+      "codice_attrezzatura": "S-2201",
+      "data": "2025-12-13",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Connettore display",
+      "operatore": "Marco Bianchi"
+    },
+    {
+      "codice_scheda": "SCH-3009",
+      "codice_attrezzatura": "DTR-041",
+      "data": "2025-11-01",
+      "motivo_guasto": "Componente bruciato per sovratensione",
+      "componente_sostituito": "Condensatore elettrolitico 470uF",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_scheda": "SCH-3005",
+      "codice_attrezzatura": "DTR-014",
+      "data": "2026-07-13",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Optoisolatore",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3005",
+      "codice_attrezzatura": "TLS-102",
+      "data": "2025-04-20",
+      "motivo_guasto": "Ossidazione contatti",
+      "componente_sostituito": "Transistor di potenza MOSFET",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_scheda": "SCH-3009",
+      "codice_attrezzatura": "DTR-014",
+      "data": "2026-03-24",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Transistor di potenza MOSFET",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3009",
+      "codice_attrezzatura": "DTR-014",
+      "data": "2025-07-03",
+      "motivo_guasto": "Sovraccarico termico componente di potenza",
+      "componente_sostituito": "Resistore di pull-up",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3007",
+      "codice_attrezzatura": "TLS-102",
+      "data": "2026-06-04",
+      "motivo_guasto": "Interferenza elettromagnetica su sensore",
+      "componente_sostituito": "Connettore encoder",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3006",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-11-03",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Connettore encoder",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_scheda": "SCH-3010",
+      "codice_attrezzatura": "Dtr4",
+      "data": "2026-02-08",
+      "motivo_guasto": "Saldatura a freddo su connettore",
+      "componente_sostituito": "Fusibile di linea",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3007",
+      "codice_attrezzatura": "DTR-014",
+      "data": "2026-01-14",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Optoisolatore",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_scheda": "SCH-3004",
+      "codice_attrezzatura": "S-2201",
+      "data": "2026-02-03",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Transceiver CAN",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3008",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-12-24",
+      "motivo_guasto": "Umidita' infiltrata nel case",
+      "componente_sostituito": "Connettore encoder",
+      "operatore": "Marco Bianchi"
+    },
+    {
+      "codice_scheda": "SCH-3004",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2026-06-22",
+      "motivo_guasto": "Saldatura a freddo su connettore",
+      "componente_sostituito": "Transceiver CAN",
+      "operatore": "Chiara Ferrari"
+    },
+    {
+      "codice_scheda": "SCH-3005",
+      "codice_attrezzatura": "DTR-027",
+      "data": "2025-10-04",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Connettore antenna GPS",
+      "operatore": "Davide Colombo"
+    },
+    {
+      "codice_scheda": "SCH-3009",
+      "codice_attrezzatura": "S-2214",
+      "data": "2026-06-18",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Sensore encoder ottico",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3010",
+      "codice_attrezzatura": "S-2201",
+      "data": "2026-06-07",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Diodo di protezione",
+      "operatore": "Davide Colombo"
     }
-  ]
+  ],
+  "_dati_dimostrativi_arricchiti": true
 }
