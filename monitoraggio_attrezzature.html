@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Monitoraggio Attrezzature &amp; Manutenzione Predittiva</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-bg:#dcfce7; --verde-bd:#16a34a; --verde-tx:#14532d;
+    --giallo-bg:#fef9c3; --giallo-bd:#ca8a04; --giallo-tx:#713f12;
+    --rosso-bg:#fee2e2; --rosso-bd:#dc2626; --rosso-tx:#7f1d1d;
+    --grigio-bg:#f3f4f6; --grigio-bd:#9ca3af; --grigio-tx:#374151;
+    --ink:#111827; --sub:#6b7280; --line:#e5e7eb; --card:#ffffff; --bg:#f8fafc;
+    --accent:#182C4C;
+    --alstom-navy:#182C4C;
+    --alstom-red:#E3312B;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.4;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 0 60px;}
+  header.top{
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+    margin-bottom:28px; flex-wrap:wrap;
+    background:var(--alstom-navy); color:#fff;
+    padding:18px 24px; border-bottom:4px solid var(--alstom-red);
+  }
+  header.top .brand{display:flex; align-items:center; gap:16px;}
+  header.top .brand img{height:40px; background:#fff; padding:4px 8px; border-radius:4px;}
+  h1{font-size:1.4rem; margin:0 0 4px; color:#fff;}
+  header.top .sub{color:#cbd5e1;}
+  .sub{color:var(--sub); font-size:0.9rem;}
+  .badge-date{font-size:0.78rem; color:#fff; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3); padding:5px 10px; border-radius:20px;}
+  .wrap > *:not(header){margin-left:20px; margin-right:20px;}
+  .wrap > header{margin-left:0; margin-right:0;}
+
+  .cards{display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:24px;}
+  @media (max-width:1100px){ .cards{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:600px){ .cards{grid-template-columns:repeat(2,1fr);} }
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px;}
+  .card .n{font-size:1.7rem; font-weight:700;}
+  .card .l{font-size:0.78rem; color:var(--sub); text-transform:uppercase; letter-spacing:.03em;}
+  .card.rosso .n{color:var(--rosso-bd);}
+  .card.giallo .n{color:var(--giallo-bd);}
+  .card.verde .n{color:var(--verde-bd);}
+
+  .panel{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:20px;}
+  .panel h2{font-size:1rem; margin:0 0 12px;}
+  .soglie-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:700px){ .soglie-grid{grid-template-columns:1fr;} }
+  .soglia-item label{display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;}
+  .soglia-item label b{font-variant-numeric:tabular-nums;}
+  input[type=range]{width:100%;}
+  .hint{font-size:0.76rem; color:var(--sub); margin-top:4px;}
+
+  .pred-kpi{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px;}
+  @media (max-width:700px){ .pred-kpi{grid-template-columns:1fr;} }
+  .pred-kpi .box{background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .pred-kpi .box .n{font-size:1.5rem; font-weight:700; color:var(--alstom-navy);}
+  .pred-kpi .box .l{font-size:0.76rem; color:var(--sub); text-transform:uppercase; letter-spacing:.03em;}
+  .pred-table-wrap{overflow-x:auto;}
+  .pred-table{width:100%; border-collapse:collapse;}
+  .pred-table th{background:#f3f4f6; color:var(--alstom-navy); font-size:0.72rem; text-transform:uppercase; letter-spacing:.03em; padding:8px 10px; text-align:left; border-bottom:2px solid var(--line); white-space:nowrap;}
+  .pred-table td{padding:8px 10px; border-bottom:1px solid var(--line); font-size:0.85rem;}
+  .pred-table tr:hover td{background:#f9fafb;}
+  .trend-badge{font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:12px; white-space:nowrap;}
+  .trend-badge.peggiora{background:var(--rosso-bg); color:var(--rosso-tx);}
+  .trend-badge.migliora{background:var(--verde-bg); color:var(--verde-tx);}
+  .trend-badge.stabile{background:var(--grigio-bg); color:var(--grigio-tx);}
+  .pred-empty{color:var(--sub); font-style:italic; padding:12px 0; text-align:center;}
+  .pred-hint{font-size:0.78rem; color:var(--sub); margin-top:10px;}
+
+  .toolbar{display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; align-items:center;}
+  .toolbar input[type=search]{flex:1; min-width:180px; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-size:0.9rem;}
+  .chip{border:1px solid var(--line); background:var(--card); padding:7px 13px; border-radius:20px; font-size:0.82rem; cursor:pointer; color:var(--sub); user-select:none;}
+  .chip.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+
+  .table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:12px; background:var(--card);}
+  table{width:100%; border-collapse:collapse; background:var(--card); border-radius:12px; overflow:hidden;}
+  thead th{background:var(--accent); color:#fff; font-size:0.72rem; text-transform:uppercase; letter-spacing:.03em; padding:10px 10px; text-align:left; cursor:pointer; white-space:nowrap;}
+  thead th:hover{background:#374151;}
+  tbody td{padding:10px; border-bottom:1px solid var(--line); font-size:0.86rem; vertical-align:middle;}
+  tbody tr{cursor:pointer;}
+  tbody tr:hover{background:#f9fafb;}
+  .dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:middle;}
+  .dot.verde{background:var(--verde-bd);} .dot.giallo{background:var(--giallo-bd);} .dot.rosso{background:var(--rosso-bd);}
+  .pill{display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.74rem; font-weight:700; border:1px solid transparent;}
+  .pill.verde{background:var(--verde-bg); color:var(--verde-tx); border-color:var(--verde-bd);}
+  .pill.giallo{background:var(--giallo-bg); color:var(--giallo-tx); border-color:var(--giallo-bd);}
+  .pill.rosso{background:var(--rosso-bg); color:var(--rosso-tx); border-color:var(--rosso-bd);}
+  .mono{font-variant-numeric:tabular-nums; color:var(--sub);}
+  .bar-mini{width:80px; height:7px; background:#e5e7eb; border-radius:4px; overflow:hidden; display:inline-block; vertical-align:middle;}
+  .bar-mini > span{display:block; height:100%;}
+
+  /* overlay dettaglio */
+  .overlay{position:fixed; inset:0; background:rgba(15,23,42,.45); display:none; align-items:flex-start; justify-content:center; padding:40px 16px; overflow:auto; z-index:50;}
+  .overlay.open{display:flex;}
+  .drawer{background:#fff; border-radius:14px; max-width:760px; width:100%; padding:26px 28px; box-shadow:0 20px 60px rgba(0,0,0,.25);}
+  .drawer-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;}
+  .drawer-head h3{margin:0; font-size:1.2rem;}
+  .drawer-head .codice{color:var(--sub); font-size:0.85rem;}
+  .close-btn{border:none; background:#f3f4f6; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:1rem; color:var(--sub);}
+  .drawer-sub{color:var(--sub); font-size:0.85rem; margin-bottom:18px;}
+
+  .info-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px;}
+  @media (max-width:600px){ .info-grid{grid-template-columns:1fr 1fr;} }
+  .info-box{background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:10px 12px;}
+  .info-box .l{font-size:0.68rem; text-transform:uppercase; color:var(--sub); letter-spacing:.03em;}
+  .info-box .v{font-size:0.95rem; font-weight:600; margin-top:2px;}
+
+  .section-title{font-size:0.82rem; text-transform:uppercase; letter-spacing:.04em; color:var(--sub); margin:20px 0 10px; font-weight:700;}
+  .log-chart{display:flex; align-items:flex-end; gap:4px; height:80px; padding:6px 0;}
+  .log-chart .col{flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;}
+  .log-chart .barv{width:100%; background:#93c5fd; border-radius:3px 3px 0 0; min-height:2px;}
+  .log-chart .m{font-size:0.6rem; color:var(--sub); transform:rotate(0deg);}
+
+  .iv-list{list-style:none; margin:0; padding:0;}
+  .iv-list li{display:flex; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); font-size:0.85rem; align-items:flex-start;}
+  .iv-list li:last-child{border-bottom:none;}
+  .iv-date{color:var(--sub); min-width:82px; font-variant-numeric:tabular-nums;}
+  .iv-tag{font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:5px; white-space:nowrap;}
+  .iv-tag.guasto{background:var(--rosso-bg); color:var(--rosso-tx);}
+  .iv-tag.taratura{background:#dbeafe; color:#1e3a8a;}
+  .iv-tag.ordinaria{background:#f3f4f6; color:#374151;}
+  .iv-tag.straordinaria{background:var(--giallo-bg); color:var(--giallo-tx);}
+  .iv-esito-neg{color:var(--rosso-bd); font-weight:700;}
+
+  .doc-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .doc-chip{background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; font-size:0.76rem; font-weight:600; padding:4px 10px; border-radius:6px;}
+  .doc-chip.prod{background:#f0fdf4; color:#166534; border-color:#bbf7d0;}
+  .doc-empty{color:var(--sub); font-size:0.83rem;}
+  .doc-group{display:inline-flex; align-items:center; gap:2px; margin:0 6px 6px 0;}
+  .doc-upload-btn{display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:6px; background:#f3f4f6; color:var(--sub); border:1px solid var(--line); cursor:pointer; font-size:0.72rem;}
+  .doc-upload-btn:hover{background:#e5e7eb; color:var(--ink);}
+
+  /* feedback visivo durante il caricamento di un file (schema/procedura/codice prodotto) */
+  .upload-loading{position:relative; pointer-events:none; cursor:default;}
+  .upload-loading::before{content:""; position:absolute; inset:0; background:rgba(255,255,255,0.65); border-radius:inherit;}
+  .upload-loading::after{
+    content:""; position:absolute; top:50%; left:50%; width:14px; height:14px; margin:-7px 0 0 -7px;
+    border:2px solid rgba(0,0,0,0.15); border-top-color:var(--accent); border-radius:50%;
+    animation:upload-spin 0.7s linear infinite; z-index:1;
+  }
+  @keyframes upload-spin{ to{ transform:rotate(360deg); } }
+
+  .btn{border:none; padding:9px 16px; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; font-family:inherit;}
+  .btn-primary{background:var(--accent); color:#fff;}
+  .btn-primary:hover{background:#374151;}
+  .btn-secondary{background:#f3f4f6; color:var(--ink);}
+  .btn-secondary:hover{background:#e5e7eb;}
+
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;}
+  @media (max-width:600px){ .form-grid{grid-template-columns:1fr;} }
+  .form-field{display:flex; flex-direction:column; gap:5px;}
+  .form-field label{font-size:0.78rem; font-weight:600; color:var(--sub);}
+  .form-field input, .form-field select{padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:0.88rem; font-family:inherit;}
+  .form-field.full{grid-column:1 / -1;}
+  .form-actions{display:flex; justify-content:flex-end; gap:10px; margin-top:6px;}
+  .form-error{color:var(--rosso-bd); font-size:0.8rem; margin-bottom:10px; display:none; background:var(--rosso-bg); padding:8px 12px; border-radius:8px;}
+  .form-hint{color:var(--sub); font-size:0.8rem; margin-bottom:16px;}
+
+  .mail-box{background:#fff7f6; border:2px solid var(--alstom-red); border-radius:12px; padding:16px; margin-bottom:22px;}
+  .recipients{display:flex; flex-direction:column; gap:10px; margin-bottom:14px;}
+  .recipient-row{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .recipient-row .lbl{font-size:0.76rem; font-weight:700; color:var(--sub); text-transform:uppercase; min-width:28px;}
+  .recipient-row input[type=text], .recipient-row input[type=email]{padding:7px 10px; border:1px solid var(--line); border-radius:7px; font-size:0.85rem; font-family:inherit; flex:1 1 160px; min-width:0;}
+  .cc-chip{display:inline-flex; align-items:center; gap:6px; background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; font-size:0.78rem; font-weight:600; padding:4px 6px 4px 10px; border-radius:20px;}
+  .cc-chip button{border:none; background:transparent; color:#3730a3; font-weight:700; cursor:pointer; font-size:0.85rem; line-height:1; padding:0 2px;}
+  .cc-add{display:flex; gap:6px; align-items:center;}
+  .cc-add input{flex:1; min-width:160px; padding:7px 10px; border:1px solid var(--line); border-radius:7px; font-size:0.85rem; font-family:inherit;}
+
+  .btn-mail-lg{
+    display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+    background:var(--alstom-red); color:#fff; border:none; border-radius:10px;
+    padding:16px 20px; font-size:1.05rem; font-weight:800; letter-spacing:.02em;
+    cursor:pointer; text-transform:uppercase; box-shadow:0 4px 14px rgba(227,49,43,0.4);
+  }
+  .btn-mail-lg:hover{background:#c72823;}
+
+  .overlay .drawer.wide{max-width:820px;}
+  .mail-table{width:100%; border-collapse:collapse; margin:14px 0;}
+  .mail-table th{background:var(--alstom-navy); color:#fff; font-size:0.72rem; text-transform:uppercase; padding:9px 10px; text-align:left;}
+  .mail-table td{padding:9px 10px; border-bottom:1px solid var(--line); font-size:0.87rem;}
+  .mail-table tr:nth-child(even) td{background:#f8fafc;}
+  .sugg-list{margin:0; padding-left:20px;}
+  .sugg-list li{margin-bottom:6px; font-size:0.87rem;}
+  .mail-actions{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;}
+  .copy-ok{color:var(--verde-bd); font-size:0.82rem; font-weight:700; margin-left:6px;}
+
+  footer{margin-top:30px; color:var(--sub); font-size:0.76rem; text-align:center;}
+
+  /* --- Smartphone / schermi stretti --- */
+  @media (max-width:640px){
+    .wrap > *:not(header){margin-left:10px; margin-right:10px;}
+    header.top{padding:14px 14px; margin-bottom:18px;}
+    header.top .brand img{height:32px;}
+    h1{font-size:1.1rem;}
+    header.top .sub{font-size:0.78rem;}
+    .badge-date{font-size:0.7rem; padding:4px 8px;}
+
+    .panel{padding:14px;}
+    .toolbar{gap:8px;}
+    .toolbar #btnAdd{margin-left:0; width:100%;}
+    .toolbar #btnExport{width:100%;}
+    .toolbar input[type=search]{width:100%;}
+
+    thead th, tbody td{padding:8px 8px; font-size:0.8rem;}
+
+    .overlay{padding:0; align-items:stretch;}
+    .drawer{max-width:100%; width:100%; min-height:100%; border-radius:0; padding:16px;}
+    .overlay .drawer.wide{max-width:100%;}
+
+    .info-grid{grid-template-columns:1fr 1fr; gap:8px;}
+    .form-grid{grid-template-columns:1fr;}
+    .mail-box{padding:12px;}
+    .recipient-row{gap:6px;}
+    .recipient-row .lbl{min-width:auto;}
+    .cc-add{flex-wrap:wrap;}
+    .cc-add input{width:100%;}
+
+    .drawer-head h3{font-size:1.05rem;}
+    .section-title{margin:16px 0 8px;}
+
+    .btn{padding:10px 14px; font-size:0.88rem;}
+    .btn-mail-lg{padding:14px 16px; font-size:0.95rem;}
+
+    .mail-actions{flex-direction:column;}
+    .mail-actions .btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <img src="logo-alstom.png" alt="Alstom">
+      <div>
+        <h1>Monitoraggio Attrezzature &amp; Manutenzione Predittiva</h1>
+        <div class="sub">Log ore d'uso, guasti e interventi — soglie di allerta per anticipare la manutenzione</div>
+      </div>
+    </div>
+    <div class="badge-date" id="dataGen"></div>
+  </header>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="panel">
+    <h2>🔮 Manutenzione predittiva — proiezioni sullo storico</h2>
+    <div class="pred-kpi" id="predKpi"></div>
+    <div class="pred-table-wrap">
+      <table class="pred-table">
+        <thead>
+          <tr><th>Codice</th><th>Attrezzatura</th><th>Stima criticità</th><th>Motivo</th><th>MTBF</th><th>Trend guasti</th></tr>
+        </thead>
+        <tbody id="predBody"></tbody>
+      </table>
+    </div>
+    <div class="pred-hint">Stima calcolata dal trend di utilizzo mensile (ore/mese) e dal tempo medio tra guasti (MTBF); più basso è il numero di dati storici disponibili, meno affidabile è la proiezione.</div>
+  </div>
+
+  <div class="panel">
+    <h2>🛠️ Schede più critiche — riparazioni per componente elettronico</h2>
+    <div class="pred-kpi" id="schedeKpi"></div>
+    <div class="pred-table-wrap">
+      <table class="pred-table">
+        <thead>
+          <tr><th>Codice</th><th>Scheda</th><th>N° riparazioni</th><th>Motivo guasto più frequente</th><th>Componente più sostituito</th><th>Ultima riparazione</th></tr>
+        </thead>
+        <tbody id="schedeBody"></tbody>
+      </table>
+    </div>
+    <div class="pred-hint">Le riparazioni delle schede incrementano il fattore di guasto della scheda stessa, non dell'attrezzatura usata per ripararla. Qui sono aggregate per capire quali componenti si guastano più spesso e cosa controllare per primo.</div>
+  </div>
+
+  <div class="panel">
+    <h2>Soglie di allerta (regolabili)</h2>
+    <div class="soglie-grid">
+      <div class="soglia-item">
+        <label>Preavviso scadenza taratura <b id="valPreavviso">60</b> giorni</label>
+        <input type="range" id="sldPreavviso" min="15" max="120" step="5" value="60">
+        <div class="hint">Sotto questa soglia lo stato taratura passa a giallo; se già scaduta è sempre rosso.</div>
+      </div>
+      <div class="soglia-item">
+        <label>Soglia ore uso "attenzione" <b id="valOre">85</b>%</label>
+        <input type="range" id="sldOre" min="60" max="99" step="1" value="85">
+        <div class="hint">Sopra questa percentuale della soglia ore l'attrezzatura passa a giallo; al 100% è rossa.</div>
+      </div>
+      <div class="soglia-item">
+        <label>Prelievi bloccanti che segnalano un doppione <b id="valPrelievi">3</b></label>
+        <input type="range" id="sldPrelievi" min="1" max="10" step="1" value="3">
+        <div class="hint">Se i prelievi segnati come "bloccanti per la produzione" superano questa soglia, l'attrezzatura viene segnalata come candidata alla duplicazione.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input type="search" id="search" placeholder="Cerca per codice o nome attrezzatura…">
+    <div class="chip active" data-f="tutti">Tutti</div>
+    <div class="chip" data-f="rosso">🔴 Rosso</div>
+    <div class="chip" data-f="giallo">🟡 Giallo</div>
+    <div class="chip" data-f="verde">🟢 Verde</div>
+    <button class="btn btn-primary" id="btnAdd" style="margin-left:auto;">+ Aggiungi attrezzatura</button>
+    <button class="btn btn-secondary" id="btnExport">Esporta dati (JSON)</button>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th data-k="stato_complessivo">Stato</th>
+        <th data-k="codice">Codice</th>
+        <th data-k="nome">Attrezzatura</th>
+        <th data-k="ubicazione">Ubicazione</th>
+        <th data-k="giorni_scadenza">Scadenza taratura</th>
+        <th data-k="pct_soglia_ore">Ore uso</th>
+        <th data-k="guasti_12_mesi">Guasti 12m</th>
+        <th data-k="n_procedure">Procedure Collaudo</th>
+        <th data-k="n_bloccanti">Doppione?</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  </div>
+
+  <footer>Dati dimostrativi (fittizi) · Modulo "Monitoraggio attrezzature e manutenzione predittiva" — Smart Industrialization Hub</footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="drawer" id="drawer"></div>
+</div>
+
+<div class="overlay" id="overlayMail">
+  <div class="drawer wide" id="drawerMail"></div>
+</div>
+
+<div class="overlay" id="overlayAdd">
+  <div class="drawer">
+    <div class="drawer-head">
+      <div>
+        <h3>Aggiungi attrezzatura</h3>
+        <div class="codice">Anagrafica, soglie iniziali e documentazione collegata</div>
+      </div>
+      <button class="close-btn" id="closeAddBtn">✕</button>
+    </div>
+    <div class="form-hint">Le attrezzature aggiunte qui restano nella sessione corrente del browser. Usa "Esporta dati (JSON)" per salvarle e integrarle poi nel file Excel.</div>
+    <div class="form-error" id="formError"></div>
+    <form id="addForm">
+      <div class="form-grid">
+        <div class="form-field"><label>Codice attrezzatura *</label><input type="text" id="fCodice" placeholder="Es. TLS-160" required></div>
+        <div class="form-field"><label>Nome attrezzatura *</label><input type="text" id="fNome" placeholder="Es. Banco di prova ottico" required></div>
+        <div class="form-field full"><label>Ubicazione</label><input type="text" id="fUbicazione" placeholder="Es. Interna - Reparto Collaudo"></div>
+        <div class="form-field"><label>Ultimo controllo</label><input type="date" id="fUltimo"></div>
+        <div class="form-field"><label>Scadenza taratura *</label><input type="date" id="fScadenza" required></div>
+        <div class="form-field"><label>Soglia ore uso *</label><input type="number" id="fSoglia" min="1" placeholder="Es. 2000" required></div>
+        <div class="form-field"><label>Ore uso attuali</label><input type="number" id="fOre" min="0" value="0"></div>
+        <div class="form-field"><label>Guasti ultimi 12 mesi</label><input type="number" id="fGuasti" min="0" value="0"></div>
+        <div class="form-field"><label>Responsabile (nome)</label><input type="text" id="fRespNome" placeholder="Es. Marco Bianchi"></div>
+        <div class="form-field"><label>Responsabile (email)</label><input type="email" id="fRespEmail" placeholder="Es. marco.bianchi@azienda.it"></div>
+        <div class="form-field full"><label>Procedure di collaudo in cui è richiamata (separate da virgola)</label><input type="text" id="fProcedure" placeholder="Es. PC-0110, PC-0122"></div>
+        <div class="form-field full"><label>Codici prodotto associati (separati da virgola)</label><input type="text" id="fCodici" placeholder="Es. COD-1002, COD-1010"></div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" id="cancelAddBtn">Annulla</button>
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+let DATA = null;
+let TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+
+let PREAVVISO = 60;
+let SOGLIA_ORE_PCT = 85;
+let SOGLIA_PRELIEVI = 3;
+
+function calcStato(a){
+  const scadenza = new Date(a.scadenza_revisione + "T00:00:00");
+  const giorni = Math.round((scadenza - TODAY) / 86400000);
+  let statoTar = giorni < 0 ? "rosso" : (giorni <= PREAVVISO ? "giallo" : "verde");
+
+  const pct = a.soglia_ore ? Math.round((a.ore_uso_attuali / a.soglia_ore) * 1000) / 10 : 0;
+  let statoOre = pct >= 100 ? "rosso" : (pct >= SOGLIA_ORE_PCT ? "giallo" : "verde");
+
+  const guasti12m = (DATA.riparazioni_tool || []).filter(r => {
+    if (r.codice_attrezzatura !== a.codice) return false;
+    const d = new Date(r.data + "T00:00:00");
+    const diffGiorni = (TODAY - d) / 86400000;
+    return diffGiorni >= 0 && diffGiorni <= 365;
+  }).length;
+  let statoGuasti = guasti12m >= 2 ? "rosso" : (guasti12m === 1 ? "giallo" : "verde");
+
+  const rank = {verde:0, giallo:1, rosso:2};
+  const peggiore = [statoTar, statoOre, statoGuasti].sort((x,y)=>rank[y]-rank[x])[0];
+  return {
+    statoTar, statoOre, statoGuasti, statoComplessivo: peggiore,
+    giorni_scadenza: giorni, pct_soglia_ore: pct, guasti_12_mesi: guasti12m
+  };
+}
+
+function fmtData(iso){
+  const d = new Date(iso + "T00:00:00");
+  return d.toLocaleDateString("it-IT", {day:"2-digit", month:"2-digit", year:"numeric"});
+}
+
+function giorniLabel(g){
+  if (g < 0) return `Scaduta da ${Math.abs(g)} gg`;
+  if (g === 0) return `Scade oggi`;
+  return `Tra ${g} gg`;
+}
+
+function fmtISO(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+async function salvaServer(endpoint, payload){
+  try{
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json();
+    if (!json.ok) alert("Errore nel salvataggio: " + (json.errore || "sconosciuto"));
+    return json;
+  } catch(e){
+    alert("Impossibile contattare il server. Verifica di essere collegato alla stessa rete Wi-Fi del PC con server.py acceso, e che il Firewall di Windows non stia bloccando la porta 8000 (vedi consenti_firewall.bat).");
+    return { ok:false, errore: "server non raggiungibile" };
+  }
+}
+
+function tagClass(tipo){
+  if (tipo.includes("guasto")) return "guasto";
+  if (tipo.includes("Taratura")) return "taratura";
+  if (tipo.includes("ordinaria")) return "ordinaria";
+  return "straordinaria";
+}
+
+let currentFilter = "tutti";
+let currentSearch = "";
+let sortKey = "stato_complessivo";
+let sortDir = -1;
+
+// --- Manutenzione predittiva: proiezioni basate sullo storico ---
+function tassoUtilizzoMensile(a){
+  const log = a.log_ore_mensile || [];
+  if (!log.length) return 0;
+  const somma = log.reduce((s, m) => s + (m.ore_incrementali || 0), 0);
+  return somma / log.length; // ore/mese medie sugli ultimi 12 mesi
+}
+
+function giorniStimatiSogliaOre(a){
+  const tasso = tassoUtilizzoMensile(a);
+  if (tasso <= 0) return null; // nessun utilizzo registrato, non stimabile
+  const oreRimanenti = a.soglia_ore - a.ore_uso_attuali;
+  if (oreRimanenti <= 0) return 0; // gia' oltre soglia
+  const orePerGiorno = tasso / 30.4;
+  if (orePerGiorno <= 0) return null;
+  return Math.round(oreRimanenti / orePerGiorno);
+}
+
+function calcolaMTBF(codice){
+  const guasti = (DATA.riparazioni_tool || [])
+    .filter(r => r.codice_attrezzatura === codice)
+    .map(r => new Date(r.data + "T00:00:00"))
+    .sort((x, y) => x - y);
+  if (guasti.length < 2) return { mtbf: null, trend: null, n: guasti.length, ultimoGuasto: guasti[guasti.length - 1] || null };
+
+  const intervalli = [];
+  for (let i = 1; i < guasti.length; i++) intervalli.push(Math.round((guasti[i] - guasti[i - 1]) / 86400000));
+  const mtbf = Math.round(intervalli.reduce((s, x) => s + x, 0) / intervalli.length);
+
+  let trend = "stabile";
+  if (intervalli.length >= 2){
+    const meta = Math.max(1, Math.floor(intervalli.length / 2));
+    const primaMeta = intervalli.slice(0, meta);
+    const secondaMeta = intervalli.slice(meta).length ? intervalli.slice(meta) : primaMeta;
+    const mediaPrima = primaMeta.reduce((s, x) => s + x, 0) / primaMeta.length;
+    const mediaSeconda = secondaMeta.reduce((s, x) => s + x, 0) / secondaMeta.length;
+    if (mediaSeconda < mediaPrima * 0.85) trend = "peggiora";
+    else if (mediaSeconda > mediaPrima * 1.15) trend = "migliora";
+  }
+  return { mtbf, trend, n: guasti.length, ultimoGuasto: guasti[guasti.length - 1] };
+}
+
+function calcPrevisione(a){
+  const giorniOre = giorniStimatiSogliaOre(a);
+  const mtbfInfo = calcolaMTBF(a.codice);
+  let giorniGuasto = null;
+  if (mtbfInfo.mtbf !== null && mtbfInfo.ultimoGuasto){
+    const giorniDaUltimo = Math.round((TODAY - mtbfInfo.ultimoGuasto) / 86400000);
+    giorniGuasto = mtbfInfo.mtbf - giorniDaUltimo;
+  }
+  const candidati = [
+    { giorni: a.giorni_scadenza, motivo: "taratura" },
+    { giorni: giorniOre, motivo: "ore d'uso" },
+    { giorni: giorniGuasto, motivo: "guasti (MTBF)" },
+  ].filter(c => c.giorni !== null && c.giorni !== undefined);
+  candidati.sort((x, y) => x.giorni - y.giorni);
+  const migliore = candidati.length ? candidati[0] : { giorni: null, motivo: "—" };
+  return {
+    giorniOre, giorniGuasto, mtbfInfo,
+    tassoMensile: Math.round(tassoUtilizzoMensile(a)),
+    giorniMin: migliore.giorni, motivoMin: migliore.motivo
+  };
+}
+
+function computedList(){
+  return DATA.attrezzature.map(a => {
+    const prelievi = a.prelievi || [];
+    const nBloccanti = prelievi.filter(p => p.bloccante).length;
+    return Object.assign({}, a, calcStato(a), {
+      n_procedure: (a.procedure_collaudo || []).length,
+      n_codici: (a.codici_prodotto || []).length,
+      n_prelievi: prelievi.length,
+      n_bloccanti: nBloccanti,
+      pct_bloccanti: prelievi.length ? Math.round((nBloccanti / prelievi.length) * 100) : 0,
+      flagDoppione: nBloccanti >= SOGLIA_PRELIEVI
+    }, calcPrevisione(a));
+  });
+}
+
+function renderPrevisioni(list){
+  const mtbfValidi = list.map(a => a.mtbfInfo.mtbf).filter(m => m !== null && m !== undefined);
+  const mtbfMedio = mtbfValidi.length ? Math.round(mtbfValidi.reduce((s,x)=>s+x,0)/mtbfValidi.length) : null;
+  const aRischio30 = list.filter(a => a.giorniMin !== null && a.giorniMin <= 30).length;
+  const inPeggioramento = list.filter(a => a.mtbfInfo.trend === "peggiora").length;
+
+  document.getElementById("predKpi").innerHTML = `
+    <div class="box"><div class="n">${mtbfMedio !== null ? mtbfMedio + ' gg' : '—'}</div><div class="l">MTBF medio flotta</div></div>
+    <div class="box"><div class="n">${aRischio30}</div><div class="l">A rischio nei prossimi 30 giorni</div></div>
+    <div class="box"><div class="n">${inPeggioramento}</div><div class="l">Trend guasti in peggioramento</div></div>
+  `;
+
+  const ordinata = list.slice().filter(a => a.giorniMin !== null).sort((a,b)=>a.giorniMin - b.giorniMin).slice(0, 8);
+  const body = document.getElementById("predBody");
+  if (!ordinata.length){
+    body.innerHTML = `<tr><td colspan="6" class="pred-empty">Dati storici insufficienti per generare proiezioni.</td></tr>`;
+    return;
+  }
+  body.innerHTML = ordinata.map(a => {
+    const mt = a.mtbfInfo;
+    const mtbfLabel = mt.mtbf !== null ? `${mt.mtbf} gg (${mt.n} guasti)` : `n.d. (${mt.n} guast${mt.n===1?'o':'i'})`;
+    const trendLabel = mt.trend ? `<span class="trend-badge ${mt.trend}">${mt.trend}</span>` : `<span class="trend-badge stabile">n.d.</span>`;
+    return `
+    <tr style="cursor:pointer;" onclick="openDrawer('${a.codice}')">
+      <td><b>${a.codice}</b></td>
+      <td>${a.nome}</td>
+      <td>${giorniLabel(a.giorniMin)}</td>
+      <td>${a.motivoMin}</td>
+      <td class="mono">${mtbfLabel}</td>
+      <td>${trendLabel}</td>
+    </tr>`;
+  }).join("");
+}
+
+// --- Schede elettroniche: aggregazione riparazioni per capire cosa si guasta di più ---
+function contaFrequenze(arr){
+  const m = {};
+  arr.forEach(x => { if (!x) return; m[x] = (m[x] || 0) + 1; });
+  let top = null, topN = 0;
+  for (const k in m){ if (m[k] > topN){ top = k; topN = m[k]; } }
+  return top;
+}
+
+function calcSchedeCritiche(){
+  const rip = DATA.riparazioni_schede || [];
+  const nomiSchede = {};
+  (DATA.schede || []).forEach(s => nomiSchede[s.codice] = s.nome);
+  const gruppi = {};
+  rip.forEach(r => {
+    gruppi[r.codice_scheda] = gruppi[r.codice_scheda] || [];
+    gruppi[r.codice_scheda].push(r);
+  });
+  const righe = Object.keys(gruppi).map(codice => {
+    const list = gruppi[codice];
+    const ultima = list.slice().sort((a,b)=> new Date(b.data)-new Date(a.data))[0];
+    return {
+      codice,
+      nome: nomiSchede[codice] || "—",
+      nRiparazioni: list.length,
+      motivoTop: contaFrequenze(list.map(r=>r.motivo_guasto)),
+      componenteTop: contaFrequenze(list.map(r=>r.componente_sostituito)),
+      ultimaData: ultima ? ultima.data : null
+    };
+  });
+  righe.sort((a,b)=> b.nRiparazioni - a.nRiparazioni);
+  return righe;
+}
+
+function renderSchedeCritiche(){
+  const righe = calcSchedeCritiche();
+  const totSchede = (DATA.schede || []).length;
+  const totRip = (DATA.riparazioni_schede || []).length;
+  const peggiore = righe[0];
+  document.getElementById("schedeKpi").innerHTML = `
+    <div class="box"><div class="n">${totSchede}</div><div class="l">Schede censite</div></div>
+    <div class="box"><div class="n">${totRip}</div><div class="l">Riparazioni schede registrate</div></div>
+    <div class="box"><div class="n">${peggiore ? peggiore.codice : '—'}</div><div class="l">Scheda più critica${peggiore ? ' (' + peggiore.nRiparazioni + ' riparazioni)' : ''}</div></div>
+  `;
+  const top = righe.slice(0, 8);
+  const body = document.getElementById("schedeBody");
+  if (!top.length){
+    body.innerHTML = `<tr><td colspan="6" class="pred-empty">Nessuna riparazione di schede registrata.</td></tr>`;
+    return;
+  }
+  body.innerHTML = top.map(r => `
+    <tr>
+      <td><b>${r.codice}</b></td>
+      <td>${r.nome}</td>
+      <td class="mono">${r.nRiparazioni}</td>
+      <td>${r.motivoTop || "—"}</td>
+      <td>${r.componenteTop || "—"}</td>
+      <td>${r.ultimaData ? fmtData(r.ultimaData) : "—"}</td>
+    </tr>
+  `).join("");
+}
+
+function render(){
+  document.getElementById("dataGen").textContent = "Dati aggiornati al " + fmtData(DATA.generato_il);
+
+  let list = computedList();
+
+  // cards
+  const nRosso = list.filter(a=>a.statoComplessivo==="rosso").length;
+  const nGiallo = list.filter(a=>a.statoComplessivo==="giallo").length;
+  const nVerde = list.filter(a=>a.statoComplessivo==="verde").length;
+  const nGuastiTot = list.reduce((s,a)=>s+a.guasti_12_mesi,0);
+  const nDoppioni = list.filter(a=>a.flagDoppione).length;
+  document.getElementById("cards").innerHTML = `
+    <div class="card"><div class="n">${list.length}</div><div class="l">Attrezzature monitorate</div></div>
+    <div class="card rosso"><div class="n">${nRosso}</div><div class="l">In allerta rossa</div></div>
+    <div class="card giallo"><div class="n">${nGiallo}</div><div class="l">In attenzione</div></div>
+    <div class="card verde"><div class="n">${nVerde}</div><div class="l">Regolari</div></div>
+    <div class="card"><div class="n">${nGuastiTot}</div><div class="l">Guasti (12 mesi)</div></div>
+    <div class="card giallo"><div class="n">${nDoppioni}</div><div class="l">Da valutare per doppione</div></div>
+  `;
+
+  renderPrevisioni(list);
+  renderSchedeCritiche();
+
+  // filtro + ricerca
+  if (currentFilter !== "tutti") list = list.filter(a=>a.statoComplessivo===currentFilter);
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    list = list.filter(a => a.codice.toLowerCase().includes(q) || a.nome.toLowerCase().includes(q));
+  }
+
+  // sort
+  const rank = {verde:0, giallo:1, rosso:2};
+  list.sort((a,b)=>{
+    let va = sortKey === "stato_complessivo" ? rank[a.statoComplessivo] : a[sortKey];
+    let vb = sortKey === "stato_complessivo" ? rank[b.statoComplessivo] : b[sortKey];
+    if (typeof va === "string") { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    if (va < vb) return -1 * sortDir;
+    if (va > vb) return 1 * sortDir;
+    return 0;
+  });
+
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = list.map(a => `
+    <tr data-codice="${a.codice}">
+      <td><span class="pill ${a.statoComplessivo}">${a.statoComplessivo.toUpperCase()}</span></td>
+      <td><b>${a.codice}</b></td>
+      <td>${a.nome}</td>
+      <td class="mono">${a.ubicazione}</td>
+      <td><span class="dot ${a.statoTar}"></span>${giorniLabel(a.giorni_scadenza)}</td>
+      <td>
+        <span class="bar-mini"><span style="width:${Math.min(a.pct_soglia_ore,100)}%; background:var(--${a.statoOre}-bd, #16a34a);"></span></span>
+        <span class="mono" style="margin-left:6px;">${a.pct_soglia_ore}%</span>
+      </td>
+      <td><span class="dot ${a.statoGuasti}"></span>${a.guasti_12_mesi}</td>
+      <td>${a.n_procedure ? `<span class="mono">${a.n_procedure} procedura/e</span>` : `<span class="doc-empty">—</span>`}</td>
+      <td>${a.flagDoppione ? `<span class="pill giallo">⚠️ Valutare</span>` : (a.n_prelievi ? `<span class="mono">${a.n_bloccanti}/${a.n_prelievi} bloccanti</span>` : `<span class="doc-empty">—</span>`)}</td>
+    </tr>
+  `).join("");
+
+  tbody.querySelectorAll("tr").forEach(tr=>{
+    tr.addEventListener("click", ()=> openDrawer(tr.dataset.codice));
+  });
+}
+
+function openDrawer(codice){
+  const a = computedList().find(x=>x.codice===codice);
+  const raw = DATA.attrezzature.find(x=>x.codice===codice);
+  const interventi = DATA.interventi.filter(i=>i.codice===codice).sort((x,y)=> new Date(y.data)-new Date(x.data));
+  const maxOre = Math.max(...a.log_ore_mensile.map(m=>m.ore_incrementali));
+
+  const chart = a.log_ore_mensile.map(m => `
+    <div class="col">
+      <div class="barv" style="height:${Math.max(4, Math.round(m.ore_incrementali/maxOre*60))}px" title="${m.mese}: ${m.ore_incrementali}h"></div>
+      <div class="m">${m.mese.slice(5)}</div>
+    </div>
+  `).join("");
+
+  const ivHtml = interventi.length ? interventi.map(i => `
+    <li>
+      <span class="iv-date">${fmtData(i.data)}</span>
+      <span class="iv-tag ${tagClass(i.tipo)}">${i.tipo}</span>
+      <span style="flex:1;">${i.descrizione} ${i.esito.includes("Negativo") ? `<span class="iv-esito-neg">— ${i.esito}</span>` : ""}</span>
+    </li>
+  `).join("") : `<li style="color:var(--sub);">Nessun intervento registrato.</li>`;
+
+  const procedure = a.procedure_collaudo || [];
+  const codiciProdotto = a.codici_prodotto || [];
+  const docProc = DATA.documenti_procedure || {};
+  const docProd = DATA.documenti_codici_prodotto || {};
+  const procChips = procedure.length
+    ? procedure.map(p => {
+        const doc = docProc[p];
+        const base = doc
+          ? `<a class="doc-chip" style="text-decoration:none;" href="${doc.url}" target="_blank" rel="noopener">📄 ${p}</a>`
+          : `<span class="doc-chip">${p}</span>`;
+        const upload = `<label class="doc-upload-btn" title="Carica/aggiorna documento per ${p}">📎<input type="file" accept=".pdf,.doc,.docx" style="display:none;" onchange="caricaDocumentoProcedura('${a.codice}','${p}', this)"></label>`;
+        return `<span class="doc-group">${base}${upload}</span>`;
+      }).join("")
+    : `<span class="doc-empty">Nessuna procedura di collaudo collegata.</span>`;
+  const prodChips = codiciProdotto.length
+    ? codiciProdotto.map(c => {
+        const docs = docProd[c] || [];
+        const links = docs.map(d => `<a class="doc-chip prod" style="text-decoration:none;" href="${d.url}" target="_blank" rel="noopener">📄 ${d.nome}</a>`).join(" ");
+        const base = links || `<span class="doc-chip prod">${c}</span>`;
+        const upload = `<label class="doc-upload-btn" title="Carica documento per ${c}">📎<input type="file" style="display:none;" onchange="caricaDocumentoCodiceProdotto('${a.codice}','${c}', this)"></label>`;
+        return `<span class="doc-group">${base}${upload}</span>`;
+      }).join("")
+    : `<span class="doc-empty">Nessun codice prodotto collegato.</span>`;
+
+  const prelievi = (raw.prelievi || []).slice().sort((x,y)=> new Date(y.data)-new Date(x.data));
+  const nBloccanti = prelievi.filter(p=>p.bloccante).length;
+  const pctBloccanti = prelievi.length ? Math.round((nBloccanti/prelievi.length)*100) : 0;
+  const flagDoppione = nBloccanti >= SOGLIA_PRELIEVI;
+  const prelieviHtml = prelievi.length ? prelievi.map(p => `
+    <li>
+      <span class="iv-date">${fmtData(p.data)}</span>
+      <span class="iv-tag ${p.bloccante ? "guasto" : "ordinaria"}">${p.bloccante ? "Bloccante" : "Non bloccante"}</span>
+      <span style="flex:1;">${p.richiesto_da ? `<b>${p.richiesto_da}</b> — ` : ""}${p.nota || ""}</span>
+    </li>
+  `).join("") : `<li style="color:var(--sub);">Nessun prelievo registrato.</li>`;
+
+  const ccList = raw.email_cc || [];
+  const ccChips = ccList.map((email, idx) => `
+    <span class="cc-chip">${email}<button type="button" data-idx="${idx}" class="ccRemoveBtn">✕</button></span>
+  `).join("") || `<span class="doc-empty">Nessun destinatario aggiuntivo in copia.</span>`;
+
+  const schemi = raw.schemi_elettrici || [];
+  const schemiChips = schemi.length
+    ? schemi.map(s => `<a class="doc-chip" style="text-decoration:none;" href="${s.url}" target="_blank" rel="noopener">📐 ${s.nome}</a>`).join("")
+    : `<span class="doc-empty">Nessuno schema elettrico allegato.</span>`;
+
+  const riparazioniTool = (DATA.riparazioni_tool || []).filter(r=>r.codice_attrezzatura===codice).sort((x,y)=> new Date(y.data)-new Date(x.data));
+  const ripToolHtml = riparazioniTool.length ? riparazioniTool.map(r => `
+    <li>
+      <span class="iv-date">${fmtData(r.data)}</span>
+      <span class="iv-tag guasto">Guasto tool</span>
+      <span style="flex:1;">${r.motivo_guasto}${r.componente_sostituito && r.componente_sostituito !== "Non specificato" ? ` — sostituito: ${r.componente_sostituito}` : ""}${r.operatore ? ` <span style="color:var(--sub);">(${r.operatore})</span>` : ""}</span>
+    </li>
+  `).join("") : `<li style="color:var(--sub);">Nessuna riparazione registrata per questo tool.</li>`;
+
+  const nomiSchede = {};
+  (DATA.schede || []).forEach(s => nomiSchede[s.codice] = s.nome);
+  const riparazioniSchede = (DATA.riparazioni_schede || []).filter(r=>r.codice_attrezzatura===codice).sort((x,y)=> new Date(y.data)-new Date(x.data));
+  const ripSchedeHtml = riparazioniSchede.length ? riparazioniSchede.map(r => `
+    <li>
+      <span class="iv-date">${fmtData(r.data)}</span>
+      <span class="iv-tag straordinaria">${r.codice_scheda}</span>
+      <span style="flex:1;">${nomiSchede[r.codice_scheda] || ""} — ${r.motivo_guasto}${r.componente_sostituito && r.componente_sostituito !== "Non specificato" ? `, sostituito: ${r.componente_sostituito}` : ""}${r.operatore ? ` <span style="color:var(--sub);">(${r.operatore})</span>` : ""}</span>
+    </li>
+  `).join("") : `<li style="color:var(--sub);">Nessuna scheda riparata con questo tool.</li>`;
+
+  const schedeOptions = (DATA.schede || []).slice().sort((a,b)=>a.codice.localeCompare(b.codice))
+    .map(s => `<option value="${s.codice}">${s.codice} — ${s.nome}</option>`).join("");
+
+  document.getElementById("drawer").innerHTML = `
+    <div class="drawer-head">
+      <div>
+        <h3>${a.nome}</h3>
+        <div class="codice">${a.codice} · ${a.ubicazione}</div>
+      </div>
+      <button class="close-btn" id="closeBtn">✕</button>
+    </div>
+    <div class="drawer-sub"><span class="pill ${a.statoComplessivo}">${a.statoComplessivo.toUpperCase()}</span> — stato complessivo calcolato sul peggiore tra taratura, ore d'uso e guasti</div>
+
+    <div class="info-grid">
+      <div class="info-box"><div class="l">Scadenza taratura</div><div class="v">${fmtData(a.scadenza_revisione)}</div></div>
+      <div class="info-box"><div class="l">Giorni a scadenza</div><div class="v">${giorniLabel(a.giorni_scadenza)}</div></div>
+      <div class="info-box"><div class="l">Ultimo controllo</div><div class="v">${fmtData(a.ultimo_controllo)}</div></div>
+      <div class="info-box"><div class="l">Ore uso attuali</div><div class="v">${a.ore_uso_attuali} / ${a.soglia_ore}h</div></div>
+      <div class="info-box"><div class="l">% soglia ore</div><div class="v">${a.pct_soglia_ore}%</div></div>
+      <div class="info-box"><div class="l">Guasti 12 mesi</div><div class="v">${a.guasti_12_mesi}</div></div>
+      <div class="info-box"><div class="l">Responsabile</div><div class="v">${raw.responsabile_nome || "Da assegnare"}</div></div>
+    </div>
+
+    <div class="section-title">🔮 Proiezione manutenzione predittiva</div>
+    <div class="info-grid">
+      <div class="info-box"><div class="l">Utilizzo medio mensile</div><div class="v">${a.tassoMensile} h/mese</div></div>
+      <div class="info-box"><div class="l">Stima raggiungimento soglia ore</div><div class="v">${a.giorniOre !== null ? giorniLabel(a.giorniOre) : "n.d."}</div></div>
+      <div class="info-box"><div class="l">MTBF (tempo medio tra guasti)</div><div class="v">${a.mtbfInfo.mtbf !== null ? a.mtbfInfo.mtbf + " gg" : "n.d."}</div></div>
+      <div class="info-box"><div class="l">Trend guasti</div><div class="v"><span class="trend-badge ${a.mtbfInfo.trend || 'stabile'}">${a.mtbfInfo.trend || "dati insufficienti"}</span></div></div>
+      <div class="info-box"><div class="l">Stima prossimo guasto</div><div class="v">${a.giorniGuasto !== null ? giorniLabel(a.giorniGuasto) : "n.d."}</div></div>
+      <div class="info-box"><div class="l">Criticità stimata più vicina</div><div class="v">${a.giorniMin !== null ? giorniLabel(a.giorniMin) + " — " + a.motivoMin : "n.d."}</div></div>
+    </div>
+
+    <div class="mail-box">
+      <div class="recipients">
+        <div class="recipient-row">
+          <span class="lbl">A:</span>
+          <input type="text" id="rNome" value="${raw.responsabile_nome || ""}" placeholder="Nome responsabile">
+          <input type="email" id="rEmail" value="${raw.responsabile_email || ""}" placeholder="email@azienda.it">
+          <button type="button" class="btn btn-secondary" id="btnSaveResp" style="padding:6px 10px; font-size:0.78rem;">Salva</button>
+        </div>
+        <div class="recipient-row">
+          <span class="lbl">CC:</span>
+          ${ccChips}
+        </div>
+        <div class="cc-add">
+          <input type="email" id="ccNuova" placeholder="aggiungi email in copia…">
+          <button type="button" class="btn btn-secondary" id="btnAddCc" style="padding:7px 12px; font-size:0.8rem;">+ Aggiungi</button>
+        </div>
+      </div>
+      <button class="btn-mail-lg" id="btnPromemoria">📧 Invia promemoria di manutenzione</button>
+      <div class="hint" style="margin-top:8px;">Apre un'anteprima con tabella riepilogativa e i pulsanti per inviare via mail o copiare la tabella nel tuo client di posta.</div>
+    </div>
+
+    <div class="section-title">Log ore d'uso — ultimi 12 mesi</div>
+    <div class="log-chart">${chart}</div>
+
+    <div class="section-title">Documentazione — Procedure di collaudo che la richiamano</div>
+    <div class="doc-chips">${procChips}</div>
+
+    <div class="section-title">Documentazione — Codici prodotto associati</div>
+    <div class="doc-chips">${prodChips}</div>
+
+    <div class="section-title">Documentazione — Schemi elettrici</div>
+    <div class="doc-chips">${schemiChips}</div>
+    <div style="margin-top:10px;">
+      <label class="btn btn-secondary" style="cursor:pointer; display:inline-block;">
+        📎 Allega schema elettrico
+        <input type="file" accept=".pdf,.png,.jpg,.jpeg,.dwg,.dxf,.svg" style="display:none;" onchange="attachSchema('${a.codice}', this)">
+      </label>
+      <div class="hint" style="margin-top:6px;">Il file viene caricato sul server locale e salvato in modo permanente nella cartella schemi_elettrici/.</div>
+    </div>
+
+    <div class="section-title">Storico interventi</div>
+    <ul class="iv-list">${ivHtml}</ul>
+
+    <form id="intervForm" style="margin-top:12px; background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:14px;">
+      <div class="form-grid" style="margin-bottom:10px;">
+        <div class="form-field"><label>Data intervento</label><input type="date" id="iData" value="${DATA.generato_il}"></div>
+        <div class="form-field">
+          <label>Tipo intervento</label>
+          <select id="iTipo">
+            <option value="Taratura annuale">Taratura annuale</option>
+            <option value="Manutenzione ordinaria">Manutenzione ordinaria</option>
+            <option value="Verifica straordinaria">Verifica straordinaria</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Esito</label>
+          <select id="iEsito">
+            <option value="Positivo">Positivo</option>
+            <option value="Negativo - da rifare">Negativo - da rifare</option>
+          </select>
+        </div>
+        <div class="form-field full"><label>Descrizione</label><input type="text" id="iDescrizione" placeholder="Cosa è stato fatto"></div>
+      </div>
+      <div class="form-actions" style="justify-content:flex-start;">
+        <button type="submit" class="btn btn-primary">+ Registra intervento</button>
+      </div>
+      <div class="hint" style="margin-top:8px;">Se registri una "Taratura annuale" con esito Positivo, la scadenza viene spostata automaticamente di un anno. I guasti/riparazioni si registrano nelle due sezioni qui sotto, separate tra tool e schede.</div>
+    </form>
+
+    <div class="section-title">🔧 Riparazioni di questo tool (guasti registrati)</div>
+    <div class="hint" style="margin-bottom:8px;">Ogni riparazione registrata qui incrementa il tasso di guasto e il calcolo MTBF di <b>questa attrezzatura</b>.</div>
+    <ul class="iv-list">${ripToolHtml}</ul>
+    <form id="ripToolForm" style="margin-top:12px; background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:14px;">
+      <div class="form-grid" style="margin-bottom:10px;">
+        <div class="form-field"><label>Data riparazione</label><input type="date" id="rtData" value="${DATA.generato_il}"></div>
+        <div class="form-field"><label>Operatore</label><input type="text" id="rtOperatore" placeholder="Nome operatore"></div>
+        <div class="form-field full"><label>Motivo del guasto</label><input type="text" id="rtMotivo" placeholder="Es. Corto circuito su alimentazione"></div>
+        <div class="form-field full"><label>Componente sostituito</label><input type="text" id="rtComponente" placeholder="Es. Fusibile di linea"></div>
+      </div>
+      <div class="form-actions" style="justify-content:flex-start;">
+        <button type="submit" class="btn btn-primary">+ Registra riparazione tool</button>
+      </div>
+    </form>
+
+    <div class="section-title">🔌 Schede riparate con questo tool</div>
+    <div class="hint" style="margin-bottom:8px;">Ogni riparazione registrata qui incrementa il tasso di guasto della <b>scheda</b> riparata, non di questo tool.</div>
+    <ul class="iv-list">${ripSchedeHtml}</ul>
+    <form id="ripSchedaForm" style="margin-top:12px; background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:14px;">
+      <div class="form-grid" style="margin-bottom:10px;">
+        <div class="form-field full">
+          <label>Scheda riparata</label>
+          <select id="rsSchedaSelect">
+            ${schedeOptions}
+            <option value="__NUOVO__">+ Nuova scheda…</option>
+          </select>
+        </div>
+        <div class="form-field" id="rsCodiceNuovoWrap" style="display:none;"><label>Codice nuova scheda</label><input type="text" id="rsCodiceNuovo" placeholder="Es. SCH-3011"></div>
+        <div class="form-field" id="rsNomeNuovoWrap" style="display:none;"><label>Nome nuova scheda</label><input type="text" id="rsNomeNuovo" placeholder="Es. Scheda controllo XYZ"></div>
+        <div class="form-field"><label>Data riparazione</label><input type="date" id="rsData" value="${DATA.generato_il}"></div>
+        <div class="form-field"><label>Operatore</label><input type="text" id="rsOperatore" placeholder="Nome operatore"></div>
+        <div class="form-field full"><label>Motivo del guasto</label><input type="text" id="rsMotivo" placeholder="Es. Condensatore esaurito"></div>
+        <div class="form-field full"><label>Componente sostituito</label><input type="text" id="rsComponente" placeholder="Es. Condensatore elettrolitico 470uF"></div>
+      </div>
+      <div class="form-actions" style="justify-content:flex-start;">
+        <button type="submit" class="btn btn-primary">+ Registra riparazione scheda</button>
+      </div>
+    </form>
+
+    <div class="section-title">Prelievi in produzione — bloccante o doppione?</div>
+    ${prelievi.length ? `<div class="hint" style="margin-bottom:10px;">${nBloccanti} su ${prelievi.length} prelievi registrati come bloccanti (${pctBloccanti}%).${flagDoppione ? ` <b style="color:var(--rosso-bd);">Soglia superata: valutare l'acquisto di un doppione.</b>` : ""}</div>` : ""}
+    <ul class="iv-list">${prelieviHtml}</ul>
+
+    <form id="prelievoForm" style="margin-top:12px; background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:14px;">
+      <div class="form-grid" style="margin-bottom:10px;">
+        <div class="form-field"><label>Data prelievo</label><input type="date" id="pData" value="${DATA.generato_il}"></div>
+        <div class="form-field"><label>Richiesto da / attività</label><input type="text" id="pRichiesto" placeholder="Es. Linea 2 - collaudo finale"></div>
+        <div class="form-field full">
+          <label style="flex-direction:row; align-items:center; gap:6px; display:flex;">
+            <input type="checkbox" id="pBloccante" style="width:auto;">
+            Bloccante per le attività di produzione questa settimana
+          </label>
+        </div>
+        <div class="form-field full"><label>Nota</label><input type="text" id="pNota" placeholder="Cosa è successo, quanto ha bloccato, ecc."></div>
+      </div>
+      <div class="form-actions" style="justify-content:flex-start;">
+        <button type="submit" class="btn btn-primary">+ Registra prelievo</button>
+      </div>
+    </form>
+  `;
+  document.getElementById("closeBtn").addEventListener("click", closeDrawer);
+  document.getElementById("btnPromemoria").addEventListener("click", ()=> apriAnteprimaMail(a.codice));
+  document.getElementById("btnSaveResp").addEventListener("click", async ()=>{
+    const nome = document.getElementById("rNome").value.trim() || "Da assegnare";
+    const email = document.getElementById("rEmail").value.trim();
+    const res = await salvaServer("/api/responsabile", { codice: a.codice, nome, email });
+    if (res.ok) { DATA = res.data; openDrawer(a.codice); }
+  });
+  document.getElementById("btnAddCc").addEventListener("click", async ()=>{
+    const email = document.getElementById("ccNuova").value.trim();
+    if (!email) return;
+    const res = await salvaServer("/api/cc/add", { codice: a.codice, email });
+    if (res.ok) { DATA = res.data; openDrawer(a.codice); }
+  });
+  document.querySelectorAll(".ccRemoveBtn").forEach(btn=>{
+    btn.addEventListener("click", async ()=>{
+      const idx = parseInt(btn.dataset.idx);
+      const res = await salvaServer("/api/cc/remove", { codice: a.codice, idx });
+      if (res.ok) { DATA = res.data; openDrawer(a.codice); }
+    });
+  });
+  document.getElementById("intervForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const dataI = document.getElementById("iData").value || fmtISO(new Date());
+    const tipo = document.getElementById("iTipo").value;
+    const esito = document.getElementById("iEsito").value;
+    const descrizione = document.getElementById("iDescrizione").value.trim() || "—";
+    const res = await salvaServer("/api/intervento", { codice: a.codice, data: dataI, tipo, descrizione, esito });
+    if (res.ok) { DATA = res.data; render(); openDrawer(a.codice); }
+  });
+  document.getElementById("prelievoForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const dataP = document.getElementById("pData").value || fmtISO(new Date());
+    const richiesto = document.getElementById("pRichiesto").value.trim();
+    const bloccante = document.getElementById("pBloccante").checked;
+    const nota = document.getElementById("pNota").value.trim();
+    const res = await salvaServer("/api/prelievo", { codice: a.codice, data: dataP, richiesto_da: richiesto, bloccante, nota });
+    if (res.ok) { DATA = res.data; render(); openDrawer(a.codice); }
+  });
+  document.getElementById("ripToolForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const dataR = document.getElementById("rtData").value || fmtISO(new Date());
+    const operatore = document.getElementById("rtOperatore").value.trim();
+    const motivo = document.getElementById("rtMotivo").value.trim();
+    const componente = document.getElementById("rtComponente").value.trim();
+    const res = await salvaServer("/api/riparazione-tool", { codice: a.codice, data: dataR, motivo_guasto: motivo, componente_sostituito: componente, operatore });
+    if (res.ok) { DATA = res.data; render(); openDrawer(a.codice); }
+  });
+  const rsSel = document.getElementById("rsSchedaSelect");
+  const rsCodiceWrap = document.getElementById("rsCodiceNuovoWrap");
+  const rsNomeWrap = document.getElementById("rsNomeNuovoWrap");
+  function aggiornaVisibilitaNuovaScheda(){
+    const nuovo = rsSel.value === "__NUOVO__";
+    rsCodiceWrap.style.display = nuovo ? "" : "none";
+    rsNomeWrap.style.display = nuovo ? "" : "none";
+  }
+  rsSel.addEventListener("change", aggiornaVisibilitaNuovaScheda);
+  aggiornaVisibilitaNuovaScheda();
+  document.getElementById("ripSchedaForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const nuovo = rsSel.value === "__NUOVO__";
+    const codiceScheda = (nuovo ? document.getElementById("rsCodiceNuovo").value : rsSel.value).trim();
+    const nomeScheda = nuovo ? document.getElementById("rsNomeNuovo").value.trim() : "";
+    if (!codiceScheda){ alert("Indica il codice della scheda."); return; }
+    if (nuovo && !nomeScheda){ alert("Indica il nome della nuova scheda."); return; }
+    const dataR = document.getElementById("rsData").value || fmtISO(new Date());
+    const operatore = document.getElementById("rsOperatore").value.trim();
+    const motivo = document.getElementById("rsMotivo").value.trim();
+    const componente = document.getElementById("rsComponente").value.trim();
+    const res = await salvaServer("/api/riparazione-scheda", {
+      codice_scheda: codiceScheda, nome_scheda: nomeScheda, codice_attrezzatura: a.codice,
+      data: dataR, motivo_guasto: motivo, componente_sostituito: componente, operatore
+    });
+    if (res.ok) { DATA = res.data; render(); openDrawer(a.codice); }
+  });
+  document.getElementById("overlay").classList.add("open");
+}
+function closeDrawer(){ document.getElementById("overlay").classList.remove("open"); }
+
+function costruisciSuggerimenti(a){
+  const sugg = [];
+  if (a.statoTar === "rosso") sugg.push(`Taratura/revisione scaduta (${giorniLabel(a.giorni_scadenza)}): organizzare subito l'invio a Sesto.`);
+  else if (a.statoTar === "giallo") sugg.push(`Taratura/revisione in scadenza (${giorniLabel(a.giorni_scadenza)}): pianificare l'invio a Sesto.`);
+  if (a.statoGuasti === "rosso") sugg.push(`${a.guasti_12_mesi} guasti negli ultimi 12 mesi: ispezionare e sostituire i componenti soggetti a rottura ricorrente.`);
+  else if (a.statoGuasti === "giallo") sugg.push(`${a.guasti_12_mesi} guasto registrato negli ultimi 12 mesi: verificare lo stato dei componenti più sollecitati.`);
+  if (a.statoOre === "rosso") sugg.push(`Ore d'uso oltre la soglia (${a.pct_soglia_ore}% di ${a.soglia_ore}h): programmare manutenzione preventiva prima del prossimo utilizzo.`);
+  else if (a.statoOre === "giallo") sugg.push(`Ore d'uso vicine alla soglia (${a.pct_soglia_ore}% di ${a.soglia_ore}h): tenere sotto controllo l'usura.`);
+  if (a.flagDoppione) sugg.push(`${a.n_bloccanti} prelievi bloccanti su ${a.n_prelievi}: valutare l'acquisto di un doppione per non fermare la produzione.`);
+  if (a.statoComplessivo !== "rosso" && a.giorniMin !== null && a.giorniMin <= 30) {
+    sugg.push(`Proiezione predittiva: stimata criticità tra ${giorniLabel(a.giorniMin)} per ${a.motivoMin}, anche se lo stato attuale non è ancora rosso — pianificare l'intervento in anticipo.`);
+  }
+  if (a.mtbfInfo && a.mtbfInfo.trend === "peggiora") {
+    sugg.push(`I guasti stanno diventando più frequenti (MTBF in peggioramento, media attuale ${a.mtbfInfo.mtbf} gg tra un guasto e l'altro): valutare una verifica approfondita anche se non ancora in stato rosso.`);
+  }
+  if (!sugg.length) sugg.push("Nessuna criticità rilevata al momento: nessun intervento urgente richiesto.");
+  return sugg;
+}
+
+function costruisciTabellaHTML(a){
+  const pillColor = { verde: "#16a34a", giallo: "#ca8a04", rosso: "#dc2626" };
+  const col = pillColor[a.statoComplessivo];
+  const sugg = costruisciSuggerimenti(a).map(s => `<li style="margin-bottom:6px;">${s}</li>`).join("");
+  return `
+  <div style="font-family:Arial, sans-serif; color:#111827;">
+    <div style="background:#182C4C; color:#fff; padding:14px 18px; border-radius:8px 8px 0 0;">
+      <div style="font-size:16px; font-weight:bold;">Promemoria manutenzione attrezzatura</div>
+      <div style="font-size:12px; color:#cbd5e1;">Sistema di monitoraggio attrezzature — dati aggiornati al ${fmtData(DATA.generato_il)}</div>
+    </div>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #e5e7eb;">
+      <tr style="background:#f8fafc;"><td style="padding:8px 12px; font-weight:bold; width:40%; border-bottom:1px solid #e5e7eb;">Codice</td><td style="padding:8px 12px; border-bottom:1px solid #e5e7eb;">${a.codice}</td></tr>
+      <tr><td style="padding:8px 12px; font-weight:bold; border-bottom:1px solid #e5e7eb;">Attrezzatura</td><td style="padding:8px 12px; border-bottom:1px solid #e5e7eb;">${a.nome}</td></tr>
+      <tr style="background:#f8fafc;"><td style="padding:8px 12px; font-weight:bold; border-bottom:1px solid #e5e7eb;">Ubicazione</td><td style="padding:8px 12px; border-bottom:1px solid #e5e7eb;">${a.ubicazione}</td></tr>
+      <tr><td style="padding:8px 12px; font-weight:bold; border-bottom:1px solid #e5e7eb;">Stato complessivo</td><td style="padding:8px 12px; border-bottom:1px solid #e5e7eb;"><span style="background:${col}; color:#fff; padding:3px 10px; border-radius:12px; font-size:12px; font-weight:bold;">${a.statoComplessivo.toUpperCase()}</span></td></tr>
+      <tr style="background:#f8fafc;"><td style="padding:8px 12px; font-weight:bold; border-bottom:1px solid #e5e7eb;">Scadenza taratura</td><td style="padding:8px 12px; border-bottom:1px solid #e5e7eb;">${fmtData(a.scadenza_revisione)} (${giorniLabel(a.giorni_scadenza)})</td></tr>
+      <tr><td style="padding:8px 12px; font-weight:bold; border-bottom:1px solid #e5e7eb;">Ore uso</td><td style="padding:8px 12px; border-bottom:1px solid #e5e7eb;">${a.ore_uso_attuali} / ${a.soglia_ore}h (${a.pct_soglia_ore}%)</td></tr>
+      <tr style="background:#f8fafc;"><td style="padding:8px 12px; font-weight:bold; border-bottom:1px solid #e5e7eb;">Guasti (12 mesi)</td><td style="padding:8px 12px; border-bottom:1px solid #e5e7eb;">${a.guasti_12_mesi}</td></tr>
+      <tr><td style="padding:8px 12px; font-weight:bold;">Prelievi bloccanti</td><td style="padding:8px 12px;">${a.n_bloccanti || 0} su ${a.n_prelievi || 0}${a.flagDoppione ? ' — <b style="color:#dc2626;">valutare doppione</b>' : ''}</td></tr>
+    </table>
+    <div style="padding:14px 18px; border:1px solid #e5e7eb; border-top:none; border-radius:0 0 8px 8px;">
+      <div style="font-weight:bold; margin-bottom:8px;">Interventi suggeriti</div>
+      <ul style="margin:0; padding-left:20px;">${sugg}</ul>
+    </div>
+  </div>`;
+}
+
+function costruisciTestoPiano(a){
+  const sugg = costruisciSuggerimenti(a).map(s => "- " + s).join("\n");
+  return [
+    `Attrezzatura: ${a.codice} - ${a.nome}`,
+    `Ubicazione: ${a.ubicazione}`,
+    `Stato complessivo: ${a.statoComplessivo.toUpperCase()}`,
+    `Scadenza taratura: ${fmtData(a.scadenza_revisione)} (${giorniLabel(a.giorni_scadenza)})`,
+    `Ore uso: ${a.ore_uso_attuali} / ${a.soglia_ore}h (${a.pct_soglia_ore}%)`,
+    `Guasti (12 mesi): ${a.guasti_12_mesi}`,
+    `Prelievi bloccanti: ${a.n_bloccanti || 0} su ${a.n_prelievi || 0}`,
+    "",
+    "Interventi suggeriti:",
+    sugg
+  ].join("\n");
+}
+
+function copiaTabellaHTML(html){
+  const temp = document.createElement("div");
+  temp.contentEditable = "true";
+  temp.style.position = "fixed";
+  temp.style.left = "-9999px";
+  temp.innerHTML = html;
+  document.body.appendChild(temp);
+  const range = document.createRange();
+  range.selectNodeContents(temp);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(e) { ok = false; }
+  sel.removeAllRanges();
+  document.body.removeChild(temp);
+  return ok;
+}
+
+function apriAnteprimaMail(codice){
+  const a = computedList().find(x=>x.codice===codice);
+  const raw = DATA.attrezzature.find(x=>x.codice===codice);
+  const tabellaHtml = costruisciTabellaHTML(a);
+  const destinatario = raw.responsabile_email || "";
+  const cc = (raw.email_cc || []).join(",");
+  const oggetto = `Promemoria manutenzione - ${a.codice} ${a.nome}`;
+
+  document.getElementById("drawerMail").innerHTML = `
+    <div class="drawer-head">
+      <div>
+        <h3>Anteprima promemoria</h3>
+        <div class="codice">A: ${raw.responsabile_nome || "—"} &lt;${destinatario || "—"}&gt;${cc ? " · CC: " + cc : ""}</div>
+      </div>
+      <button class="close-btn" id="closeMailBtn">✕</button>
+    </div>
+    <div id="tabellaPreview">${tabellaHtml}</div>
+    <div class="mail-actions">
+      <button class="btn btn-mail-lg" style="width:auto;" id="btnApriMailto">📧 Apri nel client di posta</button>
+      <button class="btn btn-secondary" id="btnCopiaTabella">📋 Copia tabella per incollare nell'email</button>
+      <span class="copy-ok" id="copyOk" style="display:none;">Copiata ✓</span>
+    </div>
+  `;
+  document.getElementById("closeMailBtn").addEventListener("click", ()=> document.getElementById("overlayMail").classList.remove("open"));
+  document.getElementById("btnApriMailto").addEventListener("click", ()=>{
+    const corpo = costruisciTestoPiano(a);
+    let link = `mailto:${encodeURIComponent(destinatario).replace(/%40/g,"@")}?subject=${encodeURIComponent(oggetto)}`;
+    if (cc) link += `&cc=${encodeURIComponent(cc)}`;
+    link += `&body=${encodeURIComponent(corpo)}`;
+    window.location.href = link;
+  });
+  document.getElementById("btnCopiaTabella").addEventListener("click", ()=>{
+    const ok = copiaTabellaHTML(tabellaHtml);
+    const msg = document.getElementById("copyOk");
+    msg.style.display = ok ? "inline" : "none";
+    if (!ok) alert("Copia non riuscita: seleziona manualmente la tabella e copiala con Ctrl+C.");
+  });
+  document.getElementById("overlayMail").classList.add("open");
+}
+document.getElementById("overlay").addEventListener("click", e=>{ if(e.target.id==="overlay") closeDrawer(); });
+document.getElementById("overlayMail").addEventListener("click", e=>{ if(e.target.id==="overlayMail") document.getElementById("overlayMail").classList.remove("open"); });
+
+async function caricaFile(endpoint, campiExtra, file){
+  const fd = new FormData();
+  Object.entries(campiExtra).forEach(([k, v]) => fd.append(k, v));
+  fd.append("file", file);
+  try{
+    const res = await fetch(endpoint, { method: "POST", body: fd });
+    const json = await res.json();
+    if (!json.ok) alert("Errore nel caricamento: " + (json.errore || "sconosciuto"));
+    return json;
+  } catch(e){
+    alert("Impossibile contattare il server. Verifica di essere collegato alla stessa rete Wi-Fi del PC con server.py acceso, e che il Firewall di Windows non stia bloccando la porta 8000 (vedi consenti_firewall.bat).");
+    return { ok:false };
+  }
+}
+
+function impostaCaricamento(input, attivo){
+  const label = input && input.closest ? input.closest("label") : null;
+  if (!label) return;
+  label.classList.toggle("upload-loading", attivo);
+  input.disabled = attivo;
+}
+
+async function attachSchema(codice, input){
+  const file = input.files && input.files[0];
+  if (!file) return;
+  impostaCaricamento(input, true);
+  const res = await caricaFile("/api/upload/schema", { codice }, file);
+  if (res.ok) { DATA = res.data; openDrawer(codice); }
+  else { impostaCaricamento(input, false); input.value = ""; }
+}
+
+async function caricaDocumentoProcedura(codiceAttrezzatura, codiceProcedura, input){
+  const file = input.files && input.files[0];
+  if (!file) return;
+  impostaCaricamento(input, true);
+  const res = await caricaFile("/api/upload/procedura", { codice_procedura: codiceProcedura }, file);
+  if (res.ok) { DATA = res.data; openDrawer(codiceAttrezzatura); }
+  else { impostaCaricamento(input, false); input.value = ""; }
+}
+
+async function caricaDocumentoCodiceProdotto(codiceAttrezzatura, codiceProdotto, input){
+  const file = input.files && input.files[0];
+  if (!file) return;
+  impostaCaricamento(input, true);
+  const res = await caricaFile("/api/upload/codice_prodotto", { codice_prodotto: codiceProdotto }, file);
+  if (res.ok) { DATA = res.data; openDrawer(codiceAttrezzatura); }
+  else { impostaCaricamento(input, false); input.value = ""; }
+}
+
+document.querySelectorAll(".chip").forEach(chip=>{
+  chip.addEventListener("click", ()=>{
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+    chip.classList.add("active");
+    currentFilter = chip.dataset.f;
+    render();
+  });
+});
+document.getElementById("search").addEventListener("input", e=>{ currentSearch = e.target.value; render(); });
+document.querySelectorAll("thead th").forEach(th=>{
+  th.addEventListener("click", ()=>{
+    const k = th.dataset.k;
+    if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = 1; }
+    render();
+  });
+});
+document.getElementById("sldPreavviso").addEventListener("input", e=>{
+  PREAVVISO = parseInt(e.target.value); document.getElementById("valPreavviso").textContent = PREAVVISO; render();
+});
+document.getElementById("sldOre").addEventListener("input", e=>{
+  SOGLIA_ORE_PCT = parseInt(e.target.value); document.getElementById("valOre").textContent = SOGLIA_ORE_PCT; render();
+});
+document.getElementById("sldPrelievi").addEventListener("input", e=>{
+  SOGLIA_PRELIEVI = parseInt(e.target.value); document.getElementById("valPrelievi").textContent = SOGLIA_PRELIEVI; render();
+});
+
+// --- Aggiungi attrezzatura ---
+const overlayAdd = document.getElementById("overlayAdd");
+const addForm = document.getElementById("addForm");
+const formError = document.getElementById("formError");
+
+function openAddModal(){
+  addForm.reset();
+  formError.style.display = "none";
+  overlayAdd.classList.add("open");
+}
+function closeAddModal(){ overlayAdd.classList.remove("open"); }
+
+document.getElementById("btnAdd").addEventListener("click", openAddModal);
+document.getElementById("closeAddBtn").addEventListener("click", closeAddModal);
+document.getElementById("cancelAddBtn").addEventListener("click", closeAddModal);
+overlayAdd.addEventListener("click", e=>{ if(e.target.id==="overlayAdd") closeAddModal(); });
+
+addForm.addEventListener("submit", async e=>{
+  e.preventDefault();
+
+  const codice = document.getElementById("fCodice").value.trim();
+  const nome = document.getElementById("fNome").value.trim();
+  const scadenzaStr = document.getElementById("fScadenza").value;
+  const soglia = parseFloat(document.getElementById("fSoglia").value);
+
+  if (!codice || !nome || !scadenzaStr || !soglia){
+    formError.textContent = "Compila tutti i campi obbligatori (*).";
+    formError.style.display = "block";
+    return;
+  }
+  if (DATA.attrezzature.some(a => a.codice.toLowerCase() === codice.toLowerCase())){
+    formError.textContent = `Il codice "${codice}" è già presente in anagrafica.`;
+    formError.style.display = "block";
+    return;
+  }
+
+  const payload = {
+    codice, nome,
+    ubicazione: document.getElementById("fUbicazione").value.trim(),
+    ultimo_controllo: document.getElementById("fUltimo").value,
+    scadenza_revisione: scadenzaStr,
+    soglia_ore: soglia,
+    ore_uso_attuali: parseFloat(document.getElementById("fOre").value) || 0,
+    guasti_12_mesi: parseInt(document.getElementById("fGuasti").value) || 0,
+    procedure_collaudo: document.getElementById("fProcedure").value.split(",").map(s=>s.trim()).filter(Boolean),
+    codici_prodotto: document.getElementById("fCodici").value.split(",").map(s=>s.trim()).filter(Boolean),
+    responsabile_nome: document.getElementById("fRespNome").value.trim(),
+    responsabile_email: document.getElementById("fRespEmail").value.trim()
+  };
+
+  const res = await salvaServer("/api/attrezzatura", payload);
+  if (!res.ok){
+    formError.textContent = res.errore || "Errore durante il salvataggio sul server.";
+    formError.style.display = "block";
+    return;
+  }
+  DATA = res.data;
+  closeAddModal();
+  currentSearch = ""; document.getElementById("search").value = "";
+  render();
+});
+
+document.getElementById("btnExport").addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url; link.download = "dati_monitoraggio_aggiornato.json";
+  document.body.appendChild(link); link.click(); document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+});
+
+function mostraErroreConnessione(){
+  const host = window.location.hostname || "localhost";
+  const isLocalhost = (host === "localhost" || host === "127.0.0.1");
+  const suggerimento = isLocalhost
+    ? `Avvia <code>python server.py</code> dalla cartella del progetto, poi apri questa pagina da
+       <code>http://localhost:8000/</code> (non con doppio click sul file).`
+    : `Il server non risponde su <code>${window.location.origin}</code>. Controlla che:
+       <ul style="margin:8px 0 0; padding-left:20px;">
+         <li>il PC con <code>server.py</code> avviato sia acceso e collegato alla <b>stessa rete Wi-Fi</b> di questo dispositivo;</li>
+         <li>il Firewall di Windows non stia bloccando la porta 8000 — sul PC fai doppio click su
+             <code>consenti_firewall.bat</code> (come amministratore) e riprova;</li>
+         <li>l'indirizzo IP del PC non sia cambiato — riavvia <code>server.py</code> e ricontrolla
+             l'indirizzo mostrato nel terminale.</li>
+       </ul>`;
+  document.getElementById("cards").innerHTML = "";
+  document.querySelector(".wrap").insertAdjacentHTML("afterbegin", `
+    <div style="background:#fee2e2; color:#7f1d1d; border:1px solid #dc2626; border-radius:10px; padding:16px 20px; margin:20px;">
+      <b>Impossibile contattare il server.</b><br>
+      ${suggerimento}
+      <div style="margin-top:12px;"><button class="btn btn-primary" onclick="location.reload()">Riprova</button></div>
+    </div>`);
+}
+
+async function avvia(){
+  const maxTentativi = 3;
+  for (let tentativo = 1; tentativo <= maxTentativi; tentativo++){
+    try{
+      const res = await fetch("/api/data");
+      if (!res.ok) throw new Error("risposta non ok: " + res.status);
+      DATA = await res.json();
+      render();
+      return;
+    } catch(e){
+      if (tentativo < maxTentativi){
+        await new Promise(r => setTimeout(r, 700));
+      } else {
+        mostraErroreConnessione();
+      }
+    }
+  }
+}
+avvia();
+</script>
+</body>
+</html>

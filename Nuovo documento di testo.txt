@@ -1,0 +1,2 @@
+aggiungere indirizzi a cui mandare mail di promemoria scadenza attrezzatura
+per la mail di invio fare una mail di risposta con all'intero un html carino all'interno del quale si vedono i dati di quella specifica attrezzatura , numero interventi, guasti e tipo di manutenzione

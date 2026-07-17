@@ -1,0 +1,1532 @@
+{
+  "generato_il": "2026-07-16",
+  "attrezzature": [
+    {
+      "codice": "DTR-014",
+      "nome": "Scheda regolatore di trazione IC2500",
+      "ubicazione": "Interna - Reparto Collaudo",
+      "ultimo_controllo": "2025-10-16",
+      "scadenza_revisione": "2026-10-16",
+      "soglia_ore": 1500,
+      "ore_uso_attuali": 1319,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 68,
+          "ore_cumulative": 68
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 101,
+          "ore_cumulative": 169
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 94,
+          "ore_cumulative": 263
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 161,
+          "ore_cumulative": 424
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 153,
+          "ore_cumulative": 577
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 181,
+          "ore_cumulative": 758
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 77,
+          "ore_cumulative": 835
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 120,
+          "ore_cumulative": 955
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 69,
+          "ore_cumulative": 1024
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 94,
+          "ore_cumulative": 1118
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 131,
+          "ore_cumulative": 1249
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 70,
+          "ore_cumulative": 1319
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": 92,
+      "stato_taratura": "verde",
+      "pct_soglia_ore": 87.9,
+      "stato_ore_uso": "giallo",
+      "stato_guasti": "verde",
+      "stato_complessivo": "giallo",
+      "codici_prodotto": [
+        "COD-1032"
+      ],
+      "procedure_collaudo": [
+        "PC-0151",
+        "PC-0109"
+      ],
+      "responsabile_nome": "Marco Bianchi",
+      "responsabile_email": "marco.bianchi@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_DTR-014.svg",
+          "url": "schemi_elettrici/schema_DTR-014.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "DTR-027",
+      "nome": "Scheda regolatore di trazione IC2500",
+      "ubicazione": "Presso fornitore - Precisa Strumenti",
+      "ultimo_controllo": "2026-07-16",
+      "scadenza_revisione": "2027-07-16",
+      "soglia_ore": 1500,
+      "ore_uso_attuali": 824,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 78,
+          "ore_cumulative": 78
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 71,
+          "ore_cumulative": 149
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 49,
+          "ore_cumulative": 198
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 74,
+          "ore_cumulative": 272
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 89,
+          "ore_cumulative": 361
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 34,
+          "ore_cumulative": 395
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 89,
+          "ore_cumulative": 484
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 81,
+          "ore_cumulative": 565
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 57,
+          "ore_cumulative": 622
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 45,
+          "ore_cumulative": 667
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 99,
+          "ore_cumulative": 766
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 58,
+          "ore_cumulative": 824
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": -536,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 54.9,
+      "stato_ore_uso": "verde",
+      "stato_guasti": "verde",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1044",
+        "COD-1040"
+      ],
+      "procedure_collaudo": [
+        "PC-0106",
+        "PC-0151"
+      ],
+      "responsabile_nome": "Elena Conti",
+      "responsabile_email": "elena.conti@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_DTR-027.svg",
+          "url": "schemi_elettrici/schema_DTR-027.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "TLS-102",
+      "nome": "Rack collaudo scheda DSP VME SMD",
+      "ubicazione": "Interna - Reparto Industrializzazione",
+      "ultimo_controllo": "2026-07-16",
+      "scadenza_revisione": "2027-07-16",
+      "soglia_ore": 4000,
+      "ore_uso_attuali": 1878,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 81,
+          "ore_cumulative": 81
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 183,
+          "ore_cumulative": 264
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 150,
+          "ore_cumulative": 414
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 177,
+          "ore_cumulative": 591
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 167,
+          "ore_cumulative": 758
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 141,
+          "ore_cumulative": 899
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 200,
+          "ore_cumulative": 1099
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 119,
+          "ore_cumulative": 1218
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 143,
+          "ore_cumulative": 1361
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 180,
+          "ore_cumulative": 1541
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 152,
+          "ore_cumulative": 1693
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 185,
+          "ore_cumulative": 1878
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": -281,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 46.9,
+      "stato_ore_uso": "verde",
+      "stato_guasti": "verde",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1012",
+        "COD-1028",
+        "COD-1036",
+        "COD-1016"
+      ],
+      "procedure_collaudo": [
+        "PC-0157",
+        "PC-0133"
+      ],
+      "responsabile_nome": "Giulia Ferrari",
+      "responsabile_email": "giulia.ferrari@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_TLS-102.svg",
+          "url": "schemi_elettrici/schema_TLS-102.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "TLS-118",
+      "nome": "Simulatore prove RIA su banco rack",
+      "ubicazione": "Interna - Reparto Industrializzazione",
+      "ultimo_controllo": "2024-08-16",
+      "scadenza_revisione": "2025-08-16",
+      "soglia_ore": 4000,
+      "ore_uso_attuali": 3332,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 421,
+          "ore_cumulative": 421
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 191,
+          "ore_cumulative": 612
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 254,
+          "ore_cumulative": 866
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 276,
+          "ore_cumulative": 1142
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 203,
+          "ore_cumulative": 1345
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 256,
+          "ore_cumulative": 1601
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 210,
+          "ore_cumulative": 1811
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 272,
+          "ore_cumulative": 2083
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 397,
+          "ore_cumulative": 2480
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 302,
+          "ore_cumulative": 2782
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 304,
+          "ore_cumulative": 3086
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 246,
+          "ore_cumulative": 3332
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": -334,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 83.3,
+      "stato_ore_uso": "verde",
+      "stato_guasti": "verde",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1048"
+      ],
+      "procedure_collaudo": [
+        "PC-0118",
+        "PC-0106",
+        "PC-0103"
+      ],
+      "responsabile_nome": "Giulia Ferrari",
+      "responsabile_email": "giulia.ferrari@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_TLS-118.svg",
+          "url": "schemi_elettrici/schema_TLS-118.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "S-2201",
+      "nome": "Connettore prova di rigidità dielettrica",
+      "ubicazione": "Presso fornitore - Precisa Strumenti",
+      "ultimo_controllo": "2026-07-15",
+      "scadenza_revisione": "2027-07-15",
+      "soglia_ore": 2000,
+      "ore_uso_attuali": 1200,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 129,
+          "ore_cumulative": 129
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 103,
+          "ore_cumulative": 232
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 100,
+          "ore_cumulative": 332
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 60,
+          "ore_cumulative": 392
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 110,
+          "ore_cumulative": 502
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 60,
+          "ore_cumulative": 562
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 79,
+          "ore_cumulative": 641
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 134,
+          "ore_cumulative": 775
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 102,
+          "ore_cumulative": 877
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 95,
+          "ore_cumulative": 972
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 106,
+          "ore_cumulative": 1078
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 122,
+          "ore_cumulative": 1200
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": -458,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 60.0,
+      "stato_ore_uso": "verde",
+      "stato_guasti": "verde",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1044",
+        "COD-1024"
+      ],
+      "procedure_collaudo": [
+        "PC-0121",
+        "PC-0127",
+        "PC-0106"
+      ],
+      "responsabile_nome": "Elena Conti",
+      "responsabile_email": "elena.conti@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_S-2201.svg",
+          "url": "schemi_elettrici/schema_S-2201.svg"
+        },
+        {
+          "nome": "schema_TLS-147.svg",
+          "url": "schemi_elettrici/S-2201__1__schema_TLS-147.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "S-2214",
+      "nome": "Scheda CPU moduli I/O compatta",
+      "ubicazione": "Interna - Reparto Collaudo",
+      "ultimo_controllo": "2025-07-12",
+      "scadenza_revisione": "2026-07-12",
+      "soglia_ore": 2500,
+      "ore_uso_attuali": 2455,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 154,
+          "ore_cumulative": 154
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 112,
+          "ore_cumulative": 266
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 172,
+          "ore_cumulative": 438
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 162,
+          "ore_cumulative": 600
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 150,
+          "ore_cumulative": 750
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 305,
+          "ore_cumulative": 1055
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 291,
+          "ore_cumulative": 1346
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 172,
+          "ore_cumulative": 1518
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 244,
+          "ore_cumulative": 1762
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 189,
+          "ore_cumulative": 1951
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 299,
+          "ore_cumulative": 2250
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 205,
+          "ore_cumulative": 2455
+        }
+      ],
+      "guasti_12_mesi": 1,
+      "giorni_scadenza": -4,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 98.2,
+      "stato_ore_uso": "giallo",
+      "stato_guasti": "giallo",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1016",
+        "COD-1008",
+        "COD-1012"
+      ],
+      "procedure_collaudo": [
+        "PC-0109"
+      ],
+      "responsabile_nome": "Marco Bianchi",
+      "responsabile_email": "marco.bianchi@azienda.it",
+      "email_cc": [
+        "capo.turno.collaudo@azienda.it"
+      ],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_S-2214.svg",
+          "url": "schemi_elettrici/schema_S-2214.svg"
+        }
+      ],
+      "prelievi": [
+        {
+          "data": "2026-06-15",
+          "richiesto_da": "Linea 2 - collaudo finale",
+          "bloccante": true,
+          "nota": "Nessun calibro di riserva disponibile, linea ferma 40 minuti."
+        },
+        {
+          "data": "2026-06-29",
+          "richiesto_da": "Linea 1 - controllo qualita'",
+          "bloccante": true,
+          "nota": "Prelevato in contemporanea da due reparti, gestito in coda."
+        },
+        {
+          "data": "2026-07-06",
+          "richiesto_da": "Linea 2 - collaudo finale",
+          "bloccante": false,
+          "nota": "Disponibile, nessun conflitto."
+        },
+        {
+          "data": "2026-07-13",
+          "richiesto_da": "Linea 3 - verifica campione",
+          "bloccante": true,
+          "nota": "Bloccato lo start della verifica per 25 minuti in attesa dello strumento."
+        }
+      ]
+    },
+    {
+      "codice": "TLS-133",
+      "nome": "Cavo di collegamento MVB tester dispositivo",
+      "ubicazione": "Presso fornitore - MetroCal Srl",
+      "ultimo_controllo": "2025-08-27",
+      "scadenza_revisione": "2026-08-27",
+      "soglia_ore": 3000,
+      "ore_uso_attuali": 1796,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 123,
+          "ore_cumulative": 123
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 174,
+          "ore_cumulative": 297
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 125,
+          "ore_cumulative": 422
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 178,
+          "ore_cumulative": 600
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 230,
+          "ore_cumulative": 830
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 148,
+          "ore_cumulative": 978
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 118,
+          "ore_cumulative": 1096
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 246,
+          "ore_cumulative": 1342
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 166,
+          "ore_cumulative": 1508
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 97,
+          "ore_cumulative": 1605
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 90,
+          "ore_cumulative": 1695
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 101,
+          "ore_cumulative": 1796
+        }
+      ],
+      "guasti_12_mesi": 1,
+      "giorni_scadenza": 42,
+      "stato_taratura": "giallo",
+      "pct_soglia_ore": 59.9,
+      "stato_ore_uso": "verde",
+      "stato_guasti": "giallo",
+      "stato_complessivo": "giallo",
+      "codici_prodotto": [
+        "COD-1004",
+        "COD-1056",
+        "COD-1024"
+      ],
+      "procedure_collaudo": [
+        "PC-0124",
+        "PC-0142"
+      ],
+      "responsabile_nome": "Davide Greco",
+      "responsabile_email": "davide.greco@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_TLS-133.svg",
+          "url": "schemi_elettrici/schema_TLS-133.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "DTR-041",
+      "nome": "Dispositivo uomo morto test 72VCC",
+      "ubicazione": "Interna - Reparto Collaudo",
+      "ultimo_controllo": "2024-02-02",
+      "scadenza_revisione": "2025-02-02",
+      "soglia_ore": 1800,
+      "ore_uso_attuali": 1567,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 156,
+          "ore_cumulative": 156
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 111,
+          "ore_cumulative": 267
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 68,
+          "ore_cumulative": 335
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 107,
+          "ore_cumulative": 442
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 181,
+          "ore_cumulative": 623
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 124,
+          "ore_cumulative": 747
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 178,
+          "ore_cumulative": 925
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 164,
+          "ore_cumulative": 1089
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 62,
+          "ore_cumulative": 1151
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 148,
+          "ore_cumulative": 1299
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 143,
+          "ore_cumulative": 1442
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 125,
+          "ore_cumulative": 1567
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": -529,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 87.1,
+      "stato_ore_uso": "giallo",
+      "stato_guasti": "verde",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1020"
+      ],
+      "procedure_collaudo": [
+        "PC-0133",
+        "PC-0115",
+        "PC-0157"
+      ],
+      "responsabile_nome": "Marco Bianchi",
+      "responsabile_email": "marco.bianchi@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_DTR-041.svg",
+          "url": "schemi_elettrici/schema_DTR-041.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "S-2255",
+      "nome": "Scheda encoder comparatore velocità",
+      "ubicazione": "Interna - Reparto Industrializzazione",
+      "ultimo_controllo": "2024-04-05",
+      "scadenza_revisione": "2025-04-05",
+      "soglia_ore": 2500,
+      "ore_uso_attuali": 1500,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 137,
+          "ore_cumulative": 137
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 73,
+          "ore_cumulative": 210
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 112,
+          "ore_cumulative": 322
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 114,
+          "ore_cumulative": 436
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 175,
+          "ore_cumulative": 611
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 165,
+          "ore_cumulative": 776
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 92,
+          "ore_cumulative": 868
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 120,
+          "ore_cumulative": 988
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 81,
+          "ore_cumulative": 1069
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 170,
+          "ore_cumulative": 1239
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 165,
+          "ore_cumulative": 1404
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 96,
+          "ore_cumulative": 1500
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": -467,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 60.0,
+      "stato_ore_uso": "verde",
+      "stato_guasti": "verde",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1036",
+        "COD-1016",
+        "COD-1048"
+      ],
+      "procedure_collaudo": [
+        "PC-0118",
+        "PC-0124"
+      ],
+      "responsabile_nome": "Giulia Ferrari",
+      "responsabile_email": "giulia.ferrari@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_S-2255.svg",
+          "url": "schemi_elettrici/schema_S-2255.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "TLS-147",
+      "nome": "Kit 4 vie fibre ottiche per prove",
+      "ubicazione": "Presso fornitore - TarLab Taratura",
+      "ultimo_controllo": "2024-08-26",
+      "scadenza_revisione": "2025-08-26",
+      "soglia_ore": 1200,
+      "ore_uso_attuali": 1055,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 95,
+          "ore_cumulative": 95
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 56,
+          "ore_cumulative": 151
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 108,
+          "ore_cumulative": 259
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 89,
+          "ore_cumulative": 348
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 109,
+          "ore_cumulative": 457
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 88,
+          "ore_cumulative": 545
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 43,
+          "ore_cumulative": 588
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 70,
+          "ore_cumulative": 658
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 44,
+          "ore_cumulative": 702
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 122,
+          "ore_cumulative": 824
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 118,
+          "ore_cumulative": 942
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 113,
+          "ore_cumulative": 1055
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "giorni_scadenza": -324,
+      "stato_taratura": "rosso",
+      "pct_soglia_ore": 87.9,
+      "stato_ore_uso": "giallo",
+      "stato_guasti": "verde",
+      "stato_complessivo": "rosso",
+      "codici_prodotto": [
+        "COD-1044"
+      ],
+      "procedure_collaudo": [
+        "PC-0106",
+        "PC-0115",
+        "PC-0151"
+      ],
+      "responsabile_nome": "Elena Conti",
+      "responsabile_email": "elena.conti@azienda.it",
+      "email_cc": [],
+      "schemi_elettrici": [
+        {
+          "nome": "schema_TLS-147.svg",
+          "url": "schemi_elettrici/schema_TLS-147.svg"
+        }
+      ],
+      "prelievi": []
+    },
+    {
+      "codice": "DTR0001",
+      "nome": "PROLUNGA DIS",
+      "ubicazione": "K12",
+      "ultimo_controllo": "2026-07-16",
+      "scadenza_revisione": "2027-07-16",
+      "soglia_ore": 3000.0,
+      "ore_uso_attuali": 0.0,
+      "log_ore_mensile": [
+        {
+          "mese": "2025-08",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-09",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-10",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-11",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2025-12",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-01",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-02",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-03",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-04",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-05",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-06",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0
+        },
+        {
+          "mese": "2026-07",
+          "ore_incrementali": 0,
+          "ore_cumulative": 0.0
+        }
+      ],
+      "guasti_12_mesi": 0,
+      "codici_prodotto": [
+        "CC03"
+      ],
+      "procedure_collaudo": [
+        "PC002"
+      ],
+      "responsabile_nome": "Da assegnare",
+      "responsabile_email": "sararaimondo24@gmail.com",
+      "email_cc": [],
+      "schemi_elettrici": [],
+      "prelievi": []
+    }
+  ],
+  "interventi": [
+    {
+      "codice": "DTR-014",
+      "data": "2023-12-01",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e verifica funzionale di routine.",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "DTR-014",
+      "data": "2024-07-06",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR-014",
+      "data": "2024-10-08",
+      "tipo": "Taratura annuale",
+      "descrizione": "Taratura eseguita da fornitore esterno, certificato archiviato.",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "DTR-027",
+      "data": "2023-10-20",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR-027",
+      "data": "2024-03-08",
+      "tipo": "Taratura annuale",
+      "descrizione": "Taratura eseguita da fornitore esterno, certificato archiviato.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "DTR-027",
+      "data": "2025-10-19",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e verifica funzionale di routine.",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "DTR-041",
+      "data": "2024-05-08",
+      "tipo": "Taratura annuale",
+      "descrizione": "Taratura eseguita da fornitore esterno, certificato archiviato.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2201",
+      "data": "2023-05-11",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "S-2201",
+      "data": "2023-08-23",
+      "tipo": "Taratura annuale",
+      "descrizione": "Taratura eseguita da fornitore esterno, certificato archiviato.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2201",
+      "data": "2025-08-16",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2214",
+      "data": "2024-09-03",
+      "tipo": "Taratura annuale",
+      "descrizione": "Taratura eseguita da fornitore esterno, certificato archiviato.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2214",
+      "data": "2025-07-18",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e verifica funzionale di routine.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2255",
+      "data": "2023-05-22",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2255",
+      "data": "2025-08-31",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e verifica funzionale di routine.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-102",
+      "data": "2024-06-22",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "Pulizia e verifica funzionale di routine.",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "TLS-102",
+      "data": "2025-01-11",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-118",
+      "data": "2023-07-06",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-118",
+      "data": "2023-11-10",
+      "tipo": "Taratura annuale",
+      "descrizione": "Taratura eseguita da fornitore esterno, certificato archiviato.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-147",
+      "data": "2024-03-09",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-147",
+      "data": "2025-11-25",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Controllo dopo segnalazione operatore.",
+      "esito": "Negativo - da rifare"
+    },
+    {
+      "codice": "DTR-027",
+      "data": "2026-07-16",
+      "tipo": "Taratura annuale",
+      "descrizione": "aggiornati collegamenti",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-102",
+      "data": "2026-07-16",
+      "tipo": "Taratura annuale",
+      "descrizione": "ripristino collegamento alimentazione - cavi spezzati",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2201",
+      "data": "2026-07-15",
+      "tipo": "Taratura annuale",
+      "descrizione": "aggiornati collegamenti",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-118",
+      "data": "2026-07-16",
+      "tipo": "Manutenzione ordinaria",
+      "descrizione": "ripristino collegamento alimentazione - cavi spezzati",
+      "esito": "Positivo"
+    }
+  ],
+  "documenti_procedure": {
+    "PC-0103": {
+      "nome": "PC-0103.pdf",
+      "url": "documenti/procedure/PC-0103.pdf"
+    },
+    "PC-0106": {
+      "nome": "PC-0106.pdf",
+      "url": "documenti/procedure/PC-0106.pdf"
+    },
+    "PC-0109": {
+      "nome": "PC-0109.pdf",
+      "url": "documenti/procedure/PC-0109.pdf"
+    },
+    "PC-0115": {
+      "nome": "PC-0115.pdf",
+      "url": "documenti/procedure/PC-0115.pdf"
+    },
+    "PC-0118": {
+      "nome": "PC-0118.pdf",
+      "url": "documenti/procedure/PC-0118.pdf"
+    },
+    "PC-0121": {
+      "nome": "PC-0121.pdf",
+      "url": "documenti/procedure/PC-0121.pdf"
+    },
+    "PC-0124": {
+      "nome": "PC-0124.pdf",
+      "url": "documenti/procedure/PC-0124.pdf"
+    },
+    "PC-0127": {
+      "nome": "PC-0127.pdf",
+      "url": "documenti/procedure/PC-0127.pdf"
+    },
+    "PC-0133": {
+      "nome": "PC-0133.pdf",
+      "url": "documenti/procedure/PC-0133.pdf"
+    },
+    "PC-0142": {
+      "nome": "PC-0142.pdf",
+      "url": "documenti/procedure/PC-0142.pdf"
+    },
+    "PC-0151": {
+      "nome": "PC-0151.pdf",
+      "url": "documenti/procedure/PC-0151.pdf"
+    },
+    "PC-0157": {
+      "nome": "PC-0157.pdf",
+      "url": "documenti/procedure/PC-0157.pdf"
+    }
+  },
+  "documenti_codici_prodotto": {
+    "COD-1012": [
+      {
+        "nome": "schema_S-2255.svg",
+        "url": "documenti/codici_prodotto/COD-1012__0__schema_S-2255.svg"
+      }
+    ],
+    "COD-1032": [
+      {
+        "nome": "schema_S-2255.svg",
+        "url": "documenti/codici_prodotto/COD-1032__0__schema_S-2255.svg"
+      }
+    ]
+  },
+  "schede": [
+    {
+      "codice": "SCH-3001",
+      "nome": "Scheda alimentatore ausiliario 24VCC"
+    },
+    {
+      "codice": "SCH-3002",
+      "nome": "Scheda driver freno elettropneumatico"
+    },
+    {
+      "codice": "SCH-3003",
+      "nome": "Scheda interfaccia display cabina"
+    },
+    {
+      "codice": "SCH-3004",
+      "nome": "Scheda encoder velocità assile"
+    },
+    {
+      "codice": "SCH-3005",
+      "nome": "Scheda gateway comunicazione MVB/CAN"
+    },
+    {
+      "codice": "SCH-3006",
+      "nome": "Scheda controllo porte automatiche"
+    },
+    {
+      "codice": "SCH-3007",
+      "nome": "Scheda monitoraggio temperatura motore trazione"
+    },
+    {
+      "codice": "SCH-3008",
+      "nome": "Scheda I/O digitale cabina"
+    },
+    {
+      "codice": "SCH-3009",
+      "nome": "Scheda amplificatore segnale antenna GPS"
+    },
+    {
+      "codice": "SCH-3010",
+      "nome": "Scheda regolatore climatizzazione"
+    }
+  ],
+  "riparazioni_tool": [
+    {
+      "codice_attrezzatura": "DTR-014",
+      "data": "2023-04-25",
+      "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
+      "componente_sostituito": "Non specificato (dato migrato)",
+      "operatore": ""
+    },
+    {
+      "codice_attrezzatura": "DTR-041",
+      "data": "2024-09-21",
+      "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
+      "componente_sostituito": "Non specificato (dato migrato)",
+      "operatore": ""
+    },
+    {
+      "codice_attrezzatura": "S-2201",
+      "data": "2023-08-17",
+      "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
+      "componente_sostituito": "Non specificato (dato migrato)",
+      "operatore": ""
+    },
+    {
+      "codice_attrezzatura": "S-2214",
+      "data": "2025-10-22",
+      "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
+      "componente_sostituito": "Non specificato (dato migrato)",
+      "operatore": ""
+    },
+    {
+      "codice_attrezzatura": "TLS-133",
+      "data": "2023-11-27",
+      "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
+      "componente_sostituito": "Non specificato (dato migrato)",
+      "operatore": ""
+    },
+    {
+      "codice_attrezzatura": "TLS-133",
+      "data": "2025-09-27",
+      "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
+      "componente_sostituito": "Non specificato (dato migrato)",
+      "operatore": ""
+    },
+    {
+      "codice_attrezzatura": "TLS-147",
+      "data": "2025-03-28",
+      "motivo_guasto": "Sostituito componente danneggiato, ripristinata funzionalita'.",
+      "componente_sostituito": "Non specificato (dato migrato)",
+      "operatore": ""
+    }
+  ],
+  "riparazioni_schede": [
+    {
+      "codice_scheda": "SCH-3001",
+      "codice_attrezzatura": "S-2214",
+      "data": "2025-09-12",
+      "motivo_guasto": "Componente bruciato per sovratensione",
+      "componente_sostituito": "Regolatore di tensione LM7805",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3001",
+      "codice_attrezzatura": "S-2214",
+      "data": "2026-02-03",
+      "motivo_guasto": "Condensatore elettrolitico esaurito",
+      "componente_sostituito": "Condensatore elettrolitico 470uF",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_scheda": "SCH-3002",
+      "codice_attrezzatura": "TLS-102",
+      "data": "2025-08-20",
+      "motivo_guasto": "Corto circuito su alimentazione",
+      "componente_sostituito": "Fusibile di linea",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3003",
+      "codice_attrezzatura": "DTR-014",
+      "data": "2025-11-05",
+      "motivo_guasto": "Saldatura a freddo su connettore",
+      "componente_sostituito": "Connettore display",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_scheda": "SCH-3004",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2025-10-14",
+      "motivo_guasto": "Interferenza elettromagnetica su sensore",
+      "componente_sostituito": "Sensore encoder ottico",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3004",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2026-01-22",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Connettore encoder",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3004",
+      "codice_attrezzatura": "TLS-118",
+      "data": "2026-04-30",
+      "motivo_guasto": "Interferenza elettromagnetica su sensore",
+      "componente_sostituito": "Sensore encoder ottico",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_scheda": "SCH-3005",
+      "codice_attrezzatura": "TLS-133",
+      "data": "2025-09-28",
+      "motivo_guasto": "Guasto su circuito di comunicazione",
+      "componente_sostituito": "Transceiver CAN",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_scheda": "SCH-3005",
+      "codice_attrezzatura": "TLS-133",
+      "data": "2026-03-11",
+      "motivo_guasto": "Guasto su circuito di comunicazione",
+      "componente_sostituito": "Transceiver CAN",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3006",
+      "codice_attrezzatura": "S-2255",
+      "data": "2025-12-02",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Relè di potenza",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3007",
+      "codice_attrezzatura": "DTR-041",
+      "data": "2025-08-09",
+      "motivo_guasto": "Umidità infiltrata nel case",
+      "componente_sostituito": "Resistore di pull-up",
+      "operatore": "Federica Galli"
+    },
+    {
+      "codice_scheda": "SCH-3008",
+      "codice_attrezzatura": "S-2214",
+      "data": "2026-01-17",
+      "motivo_guasto": "Corto circuito su alimentazione",
+      "componente_sostituito": "Diodo di protezione",
+      "operatore": "Elisa Bruno"
+    },
+    {
+      "codice_scheda": "SCH-3009",
+      "codice_attrezzatura": "TLS-147",
+      "data": "2025-11-27",
+      "motivo_guasto": "Rottura meccanica connettore",
+      "componente_sostituito": "Connettore antenna GPS",
+      "operatore": "Luca Marino"
+    },
+    {
+      "codice_scheda": "SCH-3010",
+      "codice_attrezzatura": "S-2201",
+      "data": "2026-02-19",
+      "motivo_guasto": "Componente bruciato per sovratensione",
+      "componente_sostituito": "Condensatore elettrolitico 470uF",
+      "operatore": "Simone Ricci"
+    },
+    {
+      "codice_scheda": "SCH-3010",
+      "codice_attrezzatura": "S-2201",
+      "data": "2026-05-06",
+      "motivo_guasto": "Componente bruciato per sovratensione",
+      "componente_sostituito": "Condensatore elettrolitico 470uF",
+      "operatore": "Federica Galli"
+    }
+  ]
+}

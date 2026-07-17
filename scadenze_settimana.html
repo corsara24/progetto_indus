@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Scadenze della settimana - Monitoraggio Attrezzature</title>
+<meta http-equiv="refresh" content="60">
+<style>
+  body{margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; background:#f8fafc; color:#111827;}
+  .wrap{max-width:960px; margin:0 auto; padding:30px 20px 60px;}
+  header{background:#182C4C; color:#fff; padding:20px 26px; border-radius:10px 10px 0 0; border-bottom:4px solid #E3312B;}
+  header h1{margin:0 0 6px; font-size:1.3rem;}
+  header .sub{color:#cbd5e1; font-size:0.85rem;}
+  .meta{background:#fff; border:1px solid #e5e7eb; border-top:none; padding:14px 26px; font-size:0.82rem; color:#6b7280;}
+  table{width:100%; border-collapse:collapse; background:#fff; border:1px solid #e5e7eb; border-top:none;}
+  thead th{background:#f3f4f6; color:#182C4C; font-size:0.72rem; text-transform:uppercase; letter-spacing:.03em; padding:10px; text-align:left; border-bottom:2px solid #e5e7eb;}
+  tbody td{padding:10px; border-bottom:1px solid #e5e7eb; font-size:0.88rem;}
+  tbody tr:last-child td{border-bottom:none;}
+  .empty{text-align:center; color:#6b7280; padding:24px; font-style:italic;}
+  .pill{display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.74rem; font-weight:700;}
+  .pill.rosso{background:#fee2e2; color:#7f1d1d;}
+  .pill.giallo{background:#fef9c3; color:#713f12;}
+  footer{margin-top:16px; color:#9ca3af; font-size:0.74rem; text-align:center;}
+  .count{font-weight:700; color:#E3312B;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Scadenze della settimana</h1>
+    <div class="sub">Settimana dal 13/07/2026 al 19/07/2026 — <span class="count">0</span> attrezzatura/e con scadenza in questo periodo</div>
+  </header>
+  <div class="meta">
+    Report generato il 16/07/2026 alle 22:28:13 · sorgente dati: dati_store.json (ultima modifica: 16/07/2026 22:18:25) · aggiornamento automatico ogni minuto
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Codice</th><th>Attrezzatura</th><th>Ubicazione</th><th>Ultimo controllo</th><th>Scadenza</th><th>Stato</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="6" class="empty">Nessuna scadenza di taratura/revisione questa settimana.</td></tr>
+    </tbody>
+  </table>
+  <footer>Prossima implementazione: invio automatico di questa tabella via email ai responsabili.</footer>
+</div>
+</body>
+</html>
