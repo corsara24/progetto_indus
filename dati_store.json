@@ -986,7 +986,7 @@
         "PC-0151"
       ],
       "responsabile_nome": "Elena Conti",
-      "responsabile_email": "elena.conti@azienda.it",
+      "responsabile_email": "sararaimondo24@gmail.com",
       "email_cc": [],
       "schemi_elettrici": [
         {
@@ -1513,6 +1513,20 @@
       "data": "2025-08-07",
       "tipo": "Manutenzione ordinaria",
       "descrizione": "Controllo cablaggi e connessioni",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "S-2214",
+      "data": "2026-07-16",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "sono stati ripristi collegameni",
+      "esito": "Positivo"
+    },
+    {
+      "codice": "TLS-147",
+      "data": "2026-07-16",
+      "tipo": "Verifica straordinaria",
+      "descrizione": "Ok",
       "esito": "Positivo"
     }
   ],
